@@ -16,7 +16,7 @@ client.once('ready', () => {
   client.user.setActivity('욕설', { type: "LISTENING" });
 });
 
-client.on("messageCreate", async msg => {
+client.on('messageCreate', async msg => {
   if (msg.author.bot) return;
   console.log(
     `[ ${msg.guild.name} ] "${msg.channel.name}" ${msg.member.user.username}#${msg.member.user.discriminator} : ${msg.content}`
@@ -24,12 +24,14 @@ client.on("messageCreate", async msg => {
 
   const id = msg.author.id;
   const name = msg.author.username;
-  const filePath = `data/${id}.json`;
+  const filePath = `data/<@${id}>.json`;
 
   !fs.existsSync(filePath) ? fs.writeFileSync(filePath, JSON.stringify({})) : null;
   const user = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
   let saveUser = {};
+
+  if (user.warn == NaN) user.warn = 0;
 
   if (msg.content == 'ㅁ경고수') {
     const answerMessage = new MessageEmbed()
@@ -37,7 +39,31 @@ client.on("messageCreate", async msg => {
       .setTitle('**경고 수**')
       .setColor(0xBDBDBD)
       .setDescription(`**현재 <@${msg.author.id}> 님의 경고 횟수입니다!**`)
-      .addField('누적 경고수', `${user.warn}`);
+      .addField('누적 경고수', `${user.warn ? user.warn : '당신은 현재 경고가 없습니다!'}`);
+    msg.channel.send({ embeds: [answerMessage] });
+  }
+  else if (msg.content.startsWith('ㅁ경고수')) {
+    const temp = msg.content.slice(5);
+    const _filePath = `data/${temp}.json`;
+    if (!fs.existsSync(_filePath)) {
+      const answerMessage = new MessageEmbed()
+        .setAuthor('검열봇', 'https://blog.kakaocdn.net/dn/qpua2/btqyqx0g6YA/NYd5fopPNOBPwxDiYIXDK1/img.jpg')
+        .setTitle('**경고 수**')
+        .setColor(0xBDBDBD)
+        .setDescription(`**현재 ${temp} 님의 경고 횟수입니다!**`)
+        .addField('누적 경고수', `${temp} 님은 현재 경고가 없습니다!`);
+      msg.channel.send({ embeds: [answerMessage] });
+      fs.writeFileSync(_filePath, JSON.stringify({warn: 0}));
+      return;
+    }
+    const _user = JSON.parse(fs.readFileSync(_filePath, 'utf-8'));
+
+    const answerMessage = new MessageEmbed()
+      .setAuthor('검열봇', 'https://blog.kakaocdn.net/dn/qpua2/btqyqx0g6YA/NYd5fopPNOBPwxDiYIXDK1/img.jpg')
+      .setTitle('**경고 수**')
+      .setColor(0xBDBDBD)
+      .setDescription(`**현재 ${temp} 님의 경고 횟수입니다!**`)
+      .addField('누적 경고수', `${_user.warn ? _user.warn : `현재 ${temp} 님은 경고가 없습니다!`}`);
     msg.channel.send({ embeds: [answerMessage] });
   }
 
@@ -52,7 +78,7 @@ client.on("messageCreate", async msg => {
         .setTitle('**욕설이 감지되었습니다!**')
         .setColor(0xBDBDBD)
         .setDescription(`${datalist[i].Output} <@${msg.author.id}>님!! ${msg.content}(이)라뇨!`)
-        .addField('누적 경고 수', `${user.warn ? user.warn - 1 : 0} -> ${user.warn + 1}`);
+        .addField('누적 경고 수', `${user.warn ? user.warn : 0} -> ${user.warn + 1}`);
       msg.delete();
       msg.channel.send({ embeds: [alertMessage] }).then(msg => msg.react('😡'));
     }

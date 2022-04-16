@@ -1,11 +1,20 @@
 {
   "datalist": [
     {"DataName":"씨발", "Output":"어허! 그런말은 못된 말이에요!"},
+    {"DataName":"시발", "Output":"어허! 그런말은 못된 말이에요!"},
     {"DataName":"미친", "Output":"어허!!"},
     {"DataName":"미쳤", "Output":"어허!!"},
-    {"DataName":"병신", "Output":".. 병신이 장애인 비하 발언이라는건 알고 계신가요..?!"}
+    {"DataName":"병신", "Output":".. 병신이 장애인 비하 발언이라는건 알고 계신가요..?!"},
+    {"DataName":"구태", "Output":"그는 더이상 꺼내지 마소서.."},
+    {"DataName":"류강우", "Output":"그는 더이상 꺼내지 마소서.."},
+    {"DataName":"실타", "Output":"그도 더이상 꺼내지 마소서.."},
+    {"DataName":"류승우", "Output":"그도 더이상 꺼내지 마소서.."},
+    {"DataName":"지랄", "Output":"지랄은 함부로 쓰는게 아닙니다"},
+    {"DataName":"꺼져", "Output":"불 끄라는건가요? ㅎㅎ"}
   ],
   "datalist2": [
-    {"DataName":"사랑해", "Output":"아름다운말 좋아요!"}
+    {"DataName":"사랑해", "Output":"아름다운말 좋아요!"},
+    {"DataName":"예쁘다", "Output":"ㅎㅎ 예쁘긴 하죠!.. 네? 저보고 한게 아니라고요?"},
+    {"DataName":"멋있다", "Output":"ㅎㅎ 멋있긴 하죠!.. 네? 저보고 한게 아니라고요?"}
   ]
 }
