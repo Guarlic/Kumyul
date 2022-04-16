@@ -5,4 +5,4 @@
 
 ## Invite Kumyul
 
-([검열봇 초대 링크])(https://discord.com/api/oauth2/authorize?client_id=964153010735435796&permissions=8&scope=bot)
+[(검열봇 초대 링크)](https://discord.com/api/oauth2/authorize?client_id=964153010735435796&permissions=8&scope=bot)
