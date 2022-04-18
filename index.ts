@@ -115,7 +115,7 @@ client.on('messageCreate', async msg => {
 
       if (user.warn >= 100) {
         msg.guild.members.ban(msg.author.id)
-          .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 킥했습니다.`))
+          .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
           .catch(console.error);
         saveUser = {warn: 0}
         fs.writeFileSync(filePath, JSON.stringify(saveUser));
