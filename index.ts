@@ -113,15 +113,7 @@ client.on('messageCreate', async msg => {
       msg.delete();
       msg.channel.send({ embeds: [alertMessage] }).then(msg => msg.react('😡'));
 
-
-      if (user.warn >= 20) {
-        msg.guild.members.kick(msg.author.id)
-          .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 킥했습니다.`))
-          .catch(console.error);
-        saveUser = {warn: 0}
-        fs.writeFileSync(filePath, JSON.stringify(saveUser));
-      }
-      else if (user.warn >= 100) {
+      if (user.warn >= 100) {
         msg.guild.members.ban(msg.author.id)
           .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 킥했습니다.`))
           .catch(console.error);
