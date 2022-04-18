@@ -112,6 +112,20 @@ client.on('messageCreate', async msg => {
         .addField('누적 경고 수', `${user.warn ? user.warn : 0} -> ${user.warn ? user.warn + 1 : 1}`);
       msg.delete();
       msg.channel.send({ embeds: [alertMessage] }).then(msg => msg.react('😡'));
+
+      if (user.warn >= 200) {
+        msg.guild.members.ban(msg.author.id)
+          .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
+          .catch(console.error);
+        fs.writeFileSync(filePath, JSON.stringify(saveUser));
+      }
+      else if (user.warn >= 100) {
+        msg.guild.members.kick(msg.author.id)
+          .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 킥했습니다.`))
+          .catch(console.error);
+        saveUser = {warn: 0}
+        fs.writeFileSync(filePath, JSON.stringify(saveUser));
+      }
       return;
     }
   }
@@ -128,6 +142,7 @@ client.on('messageCreate', async msg => {
         .setColor(0xBDBDBD)
         .setDescription(`${datalist2[i].Output} <@${msg.author.id}>님!! ${msg.content}!! 멋진말이에요!${!user.warn ? '\n경고횟수가 0이기 때문에 더이상 감소가 불가능해요!' : ''}`)
         .addField('누적 경고 수', `${user.warn} -> ${user.warn ? user.warn - 1 : 0}`);
+      msg.react('♥️');
       msg.channel.send({ embeds: [thankMessage] }).then(msg => msg.react('♥️'));
       return;
     }
