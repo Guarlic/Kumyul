@@ -1,6 +1,6 @@
 let { MessageEmbed, Client, Intents, Collection } = require('discord.js');
 let fs = require('fs');
-let client = new Client({ intents: [ Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ] });
+let client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 client.commands = new Collection();
 
 const { clientid, token } = require('./config.json');
@@ -37,9 +37,6 @@ client.on('messageCreate', async msg => {
   const args = msg.content.slice(1).split(/ +/);
   const command = args.shift().toLowerCase();
 
-  try { client.commands.get(command).execute(msg, args); }
-  catch (error) { console.error('없는 명령어!'); }
-
   const id = msg.author.id;
   const filePath = `data/<@${id}>.json`;
 
@@ -55,14 +52,15 @@ client.on('messageCreate', async msg => {
   }
 
   try {
-    client.commands.get(command).execute(msg, args);
+    if (msg.content.startsWith('ㅁ'))
+      client.commands.get(command).execute(msg, args);
   }
   catch (error) {
     for (var i = 0; i < datalist.length; i++) {
       if (msg.content.search(datalist[i].DataName) != -1) {
         console.log('욕설이 감지되었습니다!');
-        if (!user.warn) saveUser = {warn: 1};
-        else saveUser = {warn: user.warn + 1};
+        if (!user.warn) saveUser = { warn: 1 };
+        else saveUser = { warn: user.warn + 1 };
         fs.writeFileSync(filePath, JSON.stringify(saveUser));
         const alertMessage = new MessageEmbed()
           .setAuthor('검열봇', img)
@@ -77,18 +75,18 @@ client.on('messageCreate', async msg => {
           msg.guild.members.ban(msg.author.id)
             .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
             .catch(console.error);
-          saveUser = {warn: 0}
+          saveUser = { warn: 0 }
           fs.writeFileSync(filePath, JSON.stringify(saveUser));
         }
         return;
       }
     }
-    
+
     for (var i = 0; i < datalist2.length; i++) {
       if (msg.content.search(datalist2[i].DataName) != -1) {
         console.log('착한말이 감지되었습니다!');
-        if (!user.warn) saveUser = {warn: 0};
-        else saveUser = {warn: user.warn - 1};
+        if (!user.warn) saveUser = { warn: 0 };
+        else saveUser = { warn: user.warn - 1 };
         fs.writeFileSync(filePath, JSON.stringify(saveUser));
         const thankMessage = new MessageEmbed()
           .setAuthor('검열봇', img)
@@ -101,6 +99,9 @@ client.on('messageCreate', async msg => {
         return;
       }
     }
+
+    if (!msg.content.startsWith('ㅁ'))
+      console.error('에러!', error);
   }
 });
 

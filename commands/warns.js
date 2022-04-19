@@ -19,7 +19,7 @@ module.exports = {
         .setColor(0xBDBDBD)
         .setDescription(`**현재 <@${id}> 님의 경고 횟수입니다!**`)
         .addField('누적 경고수', `${!user.warn ? '당신은 현재 경고가 없습니다!' : user.warn}`);
-      msg.channel.send({ embeds: [answerMessage] });
+      msg.reply({ embeds: [answerMessage] });
       return;
     }
 
@@ -29,7 +29,7 @@ module.exports = {
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**${temp} (이)라는 유저는 존재하지 않습니다!**`);
-      msg.channel.send({ embeds: [answerMessage] });
+      msg.reply({ embeds: [answerMessage] });
       return;
     }
 
@@ -40,7 +40,7 @@ module.exports = {
         .setColor(0xBDBDBD)
         .setDescription(`**현재 ${temp} 님의 경고 횟수입니다!**`)
         .addField('누적 경고수', `${temp != `<@${id}>` ? `${temp} 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
-      msg.channel.send({ embeds: [answerMessage] });
+      msg.reply({ embeds: [answerMessage] });
       fs.writeFileSync(_filePath, JSON.stringify({ warn: 0 }));
       return;
     }
@@ -53,6 +53,6 @@ module.exports = {
       .setColor(0xBDBDBD)
       .setDescription(`**현재 ${temp} 님의 경고 횟수입니다!**`)
       .addField('누적 경고수', `${temp != `<@${id}>` ? `${_user.warn ? _user.warn : `현재 ${temp} 님은 경고가 없습니다!`}` : `${_user.warn ? _user.warn : `당신은 현재 경고가 없습니다!`}`}`);
-    msg.channel.send({ embeds: [answerMessage] });
+    msg.reply({ embeds: [answerMessage] });
   }
 }
