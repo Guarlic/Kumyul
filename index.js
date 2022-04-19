@@ -11,10 +11,20 @@ let obj = JSON.parse(datajson);
 let datalist = obj.datalist;
 let datalist2 = obj.datalist2;
 
+let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+console.log('감지된 추가 명령어\n');
+
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  console.log(` - 이름: ${command.name}, 설명: ${command.description}`);
+  client.commands.set(command.name, command);
+}
+
 const img = 'https://blog.kakaocdn.net/dn/qpua2/btqyqx0g6YA/NYd5fopPNOBPwxDiYIXDK1/img.jpg';
 
 client.once('ready', () => {
-  console.log(`${client.user.tag} (검열봇) 이 준비되었습니다!`);
+  console.log(`\n${client.user.tag} (검열봇) 이 준비되었습니다!`);
   client.user.setActivity('욕설', { type: "LISTENING" });
 });
 
@@ -33,66 +43,6 @@ client.on('messageCreate', async msg => {
   let saveUser = {};
 
   if (user.warn == NaN) user.warn = 0;
-
-  if (msg.content == 'ㅁ도움말') {
-    const helpMessage = new MessageEmbed()
-      .setAuthor('검열봇', img)
-      .setTitle('**📜 도움말**')
-      .setColor(0xBDBDBD)
-      .addFields(
-        {name: '경고 증가, 차감', value: '욕설 사용 시 경고가 증가되고, 좋은 단어 사용 시 경고가 차감됩니다.'},
-        {name: '경고수', value: 'ㅁ경고수 -> 본인의 경고수\nㅁ경고수 @유저 -> 유저의 경고수\n를 표시합니다.'}
-      );
-    msg.channel.send({ embeds: [helpMessage] });
-  }
-
-  if (msg.content.startsWith('ㅁ경고수')) {
-    const temp = msg.content.slice(5);
-    const _filePath = `data/${temp}.json`;
-
-    if (temp == '') {
-      const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
-        .setTitle('**⚠️ 경고 수**')
-        .setColor(0xBDBDBD)
-        .setDescription(`**현재 <@${msg.author.id}> 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${!user.warn ? '당신은 현재 경고가 없습니다!' : user.warn}`);
-      msg.channel.send({ embeds: [answerMessage] });
-      return;
-    }
-
-    if (temp.startsWith('<@&') || !temp.startsWith('<@') && !temp.endsWith('>')) {
-      const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
-        .setTitle('**⚠️ 경고 수**')
-        .setColor(0xBDBDBD)
-        .setDescription(`**${temp} (이)라는 유저는 존재하지 않습니다!**`);
-      msg.channel.send({ embeds: [answerMessage] });
-      return;
-    }
-
-    if (!fs.existsSync(_filePath)) {
-      const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
-        .setTitle('**⚠️ 경고 수**')
-        .setColor(0xBDBDBD)
-        .setDescription(`**현재 ${temp} 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${temp != `<@${msg.author.id}>` ? `${temp} 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!' }`);
-      msg.channel.send({ embeds: [answerMessage] });
-      fs.writeFileSync(_filePath, JSON.stringify({warn: 0}));
-      return;
-    }
-
-    const _user = JSON.parse(fs.readFileSync(_filePath, 'utf-8'));
-
-    const answerMessage = new MessageEmbed()
-      .setAuthor('검열봇', img)
-      .setTitle('**⚠️ 경고 수**')
-      .setColor(0xBDBDBD)
-      .setDescription(`**현재 ${temp} 님의 경고 횟수입니다!**`)
-      .addField('누적 경고수', `${temp != `<@${msg.author.id}>` ? `${_user.warn ? _user.warn : `현재 ${temp} 님은 경고가 없습니다!`}` : `${_user.warn ? _user.warn : `당신은 현재 경고가 없습니다!`}`}`);
-    msg.channel.send({ embeds: [answerMessage] });
-  }
 
   if (msg.content == '욕설') {
     msg.reply('이걸 진짜로 해보네;');
@@ -141,6 +91,12 @@ client.on('messageCreate', async msg => {
       return;
     }
   }
+
+  const args = msg.content.slice(1).split(/ +/);
+  const command = args.shift().toLowerCase();
+
+  try { client.commands.get(command).execute(msg, args); }
+  catch (error) { console.error('없는 명령어!'); }
 });
 
 client.login(token);
