@@ -2,6 +2,6 @@ config.json
 package-lock.json
 package.json
 node_modules
-data
+json.sqlite
 *.sw*
 .DS_Store

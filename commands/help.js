@@ -8,7 +8,7 @@ module.exports = {
     const after = msg.content.slice(5);
     let helpMessage = new MessageEmbed();
 
-    if (after == '') {
+    if (after == '' || after == '도움말') {
       helpMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**📜 도움말**')
