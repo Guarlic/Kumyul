@@ -8,12 +8,13 @@ module.exports = {
   execute(msg) {
     const id = msg.author.id;
     const guild = msg.guild.id;
-    const temp = msg.content.slice(5);
+    const temp = msg.mentions.users.first().id;
+    const _temp = msg.content.slice(5);
 
-    const warn_get = `warn_${guild}_${id}`;
+    const warn_get = `warn_${guild}_${temp}`;
     const warn = db.get(warn_get);
 
-    if (temp == '') {
+    if (_temp == '') {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**⚠️ 경고 수**')
@@ -24,12 +25,12 @@ module.exports = {
       return;
     }
 
-    if (temp.startsWith('<@&') || !temp.startsWith('<@') && !temp.endsWith('>')) {
+    if (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>')) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
-        .setDescription(`**${temp} (이)라는 유저는 존재하지 않습니다!**`);
+        .setDescription(`**${_temp} (이)라는 유저는 존재하지 않습니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
@@ -39,8 +40,8 @@ module.exports = {
         .setAuthor('검열봇', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
-        .setDescription(`**현재 ${temp} 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${temp != `<@${id}>` ? `${temp} 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
+        .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)
+        .addField('누적 경고수', `${_temp != `<@${id}>` ? `${_temp} 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
@@ -49,8 +50,8 @@ module.exports = {
       .setAuthor('검열봇', img)
       .setTitle('**⚠️ 경고 수**')
       .setColor(0xBDBDBD)
-      .setDescription(`**현재 ${temp} 님의 경고 횟수입니다!**`)
-      .addField('누적 경고수', `${temp != `<@${id}>` ? `${warn ? warn : `현재 ${temp} 님은 경고가 없습니다!`}` : `${warn ? warn : `당신은 현재 경고가 없습니다!`}`}`);
+      .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)
+      .addField('누적 경고수', `${_temp != `<@${id}>` ? `${warn ? warn : `현재 ${_temp} 님은 경고가 없습니다!`}` : `${warn ? warn : `당신은 현재 경고가 없습니다!`}`}`);
     msg.reply({ embeds: [answerMessage] });
   }
 }
