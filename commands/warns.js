@@ -8,11 +8,9 @@ module.exports = {
   execute(msg) {
     const id = msg.author.id;
     const guild = msg.guild.id;
-    const temp = msg.mentions.users.first().id;
     const _temp = msg.content.slice(5);
 
-    const warn_get = `warn_${guild}_${temp}`;
-    const warn = db.get(warn_get);
+    const warn = db.get(`warn.${guild}.${id}`);
 
     if (_temp == '') {
       const answerMessage = new MessageEmbed()
@@ -24,6 +22,8 @@ module.exports = {
       msg.reply({ embeds: [answerMessage] });
       return;
     }
+
+    const temp = msg.mentions.users.first().id;
 
     if (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>')) {
       const answerMessage = new MessageEmbed()

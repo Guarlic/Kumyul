@@ -40,7 +40,7 @@ client.on('messageCreate', async msg => {
 
   const id = msg.author.id;
   const guild = msg.guild.id;
-  const warn_get = `warn_${guild}_${id}`;
+  const warn_get = `warn.${guild}.${id}`;
   const warn = db.get(warn_get);
 
   if (warn == NaN) db.set(warn_get, 0);

@@ -9,16 +9,23 @@ module.exports = {
     const user = msg.mentions.users.first();
     const target = user.id;
     const guild = msg.guild.id;
-    const warn_num = 0 - Number(msg.content.slice(28));
-    const warn_get = `warn_${guild}_${target}`;
+    let warn_num = 0 - Number(msg.content.slice(28));
+    const warn_get = `warn.${guild}.${target}`;
+    const warn = db.get(warn_get);
+    let flag = false;
+
+    if (warn + warn_num < 0) {
+      warn_num = warn;
+      flag = true;
+    }
 
     db.add(warn_get, warn_num);
 
     const answerMessage = new MessageEmbed()
       .setAuthor('검열봇', img)
-      .setTitle('** 경고 추가**')
+      .setTitle('**경고 차감**')
       .setColor(0xBDBDBD)
-      .setDescription(`<@${target}> 님의 경고를 ${0 - warn_num} 만큼 차감합니다.`)
+      .setDescription(`<@${target}> 님의 경고를 ${0 - warn_num} 만큼 차감합니다.\n${flag ? '경고 차감 횟수가 기존 경고보다 많아 0이 되었습니다!' : '\n'}`)
       .addField('누적 경고수', `${db.get(warn_get) - warn_num} -> ${db.get(warn_get)}`);
 
     msg.reply({ embeds: [answerMessage] });
