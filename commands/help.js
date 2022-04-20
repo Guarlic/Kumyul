@@ -1,4 +1,4 @@
-let { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const img = 'https://blog.kakaocdn.net/dn/qpua2/btqyqx0g6YA/NYd5fopPNOBPwxDiYIXDK1/img.jpg';
 
 module.exports = {

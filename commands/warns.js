@@ -1,5 +1,5 @@
 const db = require('quick.db');
-let { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const img = 'https://blog.kakaocdn.net/dn/qpua2/btqyqx0g6YA/NYd5fopPNOBPwxDiYIXDK1/img.jpg';
 
 module.exports = {
@@ -10,20 +10,20 @@ module.exports = {
     const guild = msg.guild.id;
     const _temp = msg.content.slice(5);
 
-    const warn = db.get(`warn.${guild}.${id}`);
-
     if (_temp == '') {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**현재 <@${id}> 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${!warn ? '당신은 현재 경고가 없습니다!' : warn}`);
+        .addField('누적 경고수', `${!db.get(`warn.${guild}.${id}`) ? '당신은 현재 경고가 없습니다!' : db.get(`warn.${guild}.${id}`)}`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
 
     const temp = msg.mentions.users.first().id;
+    const warn_get = `warn.${guild}.${temp}`;
+    const warn = db.get(warn_get);
 
     if (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>')) {
       const answerMessage = new MessageEmbed()
@@ -41,7 +41,7 @@ module.exports = {
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${_temp != `<@${id}>` ? `${_temp} 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
+        .addField('누적 경고수', `${temp != id ? `${_temp} 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
@@ -51,7 +51,7 @@ module.exports = {
       .setTitle('**⚠️ 경고 수**')
       .setColor(0xBDBDBD)
       .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)
-      .addField('누적 경고수', `${_temp != `<@${id}>` ? `${warn ? warn : `현재 ${_temp} 님은 경고가 없습니다!`}` : `${warn ? warn : `당신은 현재 경고가 없습니다!`}`}`);
+      .addField('누적 경고수', `${temp != id ? `${warn ? warn : `현재 ${_temp} 님은 경고가 없습니다!`}` : `${warn ? warn : `당신은 현재 경고가 없습니다!`}`}`);
     msg.reply({ embeds: [answerMessage] });
   }
 }

@@ -15,7 +15,7 @@ module.exports = {
     let flag = false;
 
     if (warn + warn_num < 0) {
-      warn_num = warn;
+      warn_num = 0 - warn;
       flag = true;
     }
 
@@ -26,8 +26,7 @@ module.exports = {
       .setTitle('**경고 차감**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${0 - warn_num} 만큼 차감합니다.\n${flag ? '경고 차감 횟수가 기존 경고보다 많아 0이 되었습니다!' : '\n'}`)
-      .addField('누적 경고수', `${db.get(warn_get) - warn_num} -> ${db.get(warn_get)}`);
-
+      .addField('누적 경고수', `${warn - warn_num} -> ${warn}`);
     msg.reply({ embeds: [answerMessage] });
   }
 }
