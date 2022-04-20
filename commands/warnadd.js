@@ -30,7 +30,7 @@ module.exports = {
       .setTitle('**경고 추가**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${warn_num} 만큼 추가합니다.`)
-      .addField('누적 경고수', `${warn - warn_num} -> ${warn}`);
+      .addField('누적 경고수', `${warn + warn_num} -> ${warn}`);
     msg.reply({ embeds: [answerMessage] });
   }
 }

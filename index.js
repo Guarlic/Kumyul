@@ -73,10 +73,10 @@ client.on('messageCreate', async msg => {
       msg.channel.send({ embeds: [alertMessage] }).then(msg => msg.react('😡'));
 
       if (warn >= 100) {
+        db.set(`warn.${guild}.${id}`, 0);
         msg.guild.members.ban(msg.author.id)
           .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
           .catch(console.error);
-        db.set(`warn_${guild}_${id}`, 0);
       }
       return;
     }
