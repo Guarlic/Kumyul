@@ -31,7 +31,7 @@ module.exports = {
       .setAuthor('검열봇', img)
       .setTitle('**경고 초기화**')
       .setDescription(`<@${user_id}> 님의 경고를 초기화합니다!`)
-      .addField('누적 경고수', `${warn} -> 0`);
+      .addField('누적 경고수', `${warn == NaN ? 0 : warn} -> 0`);
     db.set(warn_get, 0);
     msg.reply({ embeds: [answerMessage] });
   }

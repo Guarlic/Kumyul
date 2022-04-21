@@ -9,18 +9,16 @@ module.exports = {
     const user = msg.mentions.users.first();
     const temp = msg.content.slice(4);
     const guild = msg.guild.id;
-    const warn_num = Number(msg.content.slice(26));
+    const warn_num = temp != ' ' ? Number(msg.content.slice(26)) : Number(msg.content.slice(4));
+    const id = msg.author.id;
 
-    if (temp != '' && (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&'))) {
+    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&')) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**경고 초기화**')
         .setDescription(`${temp} (이)라는 유저는 존재하지 않습니다!`);
       msg.reply({ embeds: [answerMessage] });
       return;
-    }
-    else if (temp == '') {
-
     }
 
     if (user == NaN) {
@@ -48,7 +46,7 @@ module.exports = {
       .setTitle('**경고 추가**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${warn_num} 만큼 추가합니다.`)
-      .addField('누적 경고수', `${save} -> ${warn}`);
+      .addField('누적 경고수', `${save == NaN ? 0 : save} -> ${warn}`);
     msg.reply({ embeds: [answerMessage] });
   }
 }

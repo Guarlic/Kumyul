@@ -12,7 +12,7 @@ module.exports = {
     let warn_num = 0 - Number(msg.content.slice(28));
     let flag = false;
 
-    if (temp != '' && (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&'))) {
+    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&')) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**경고 초기화**')
@@ -30,18 +30,6 @@ module.exports = {
       flag = true;
     }
 
-    if (temp == '') {
-      const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
-        .setTitle('**경고 초기화**')
-        .setDescription(`**현재 <@${id}> 님의 경고 횟수입니다!**\n${flag ? '경고 차감 횟수가 기존 경고보다 많아 0이 되었습니다!' : ''}`)
-        .addField('누적 경고수', `${warn - warn_num} -> ${warn}`)
-      if (warn == NaN) db.set(warn_get, warn_num);
-      else db.add(warn_get, warn_num);
-      msg.reply({ embeds: [answerMessage] });
-      return;
-    }
-
     const save = warn;
 
     if (warn == NaN) db.set(warn_get, warn_num);
@@ -54,7 +42,7 @@ module.exports = {
       .setTitle('**경고 차감**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${0 - warn_num} 만큼 차감합니다.\n${flag ? '경고 차감 횟수가 기존 경고보다 많아 0이 되었습니다!' : ''}`)
-      .addField('누적 경고수', `${save} -> ${flag ? 0 : warn}`);
+      .addField('누적 경고수', `${save == NaN ? 0 : save} -> ${flag ? 0 : warn}`);
 
     msg.reply({ embeds: [answerMessage] });
   }
