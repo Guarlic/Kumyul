@@ -45,9 +45,7 @@ client.on('messageCreate', async msg => {
 
   if (warn == NaN) db.set(warn_get, 0);
 
-  if (msg.content == '욕설') {
-    msg.reply('이걸 진짜로 해보네;');
-  }
+  if (msg.content == '욕설') msg.reply('이걸 진짜로 해보네;');
 
   try {
     if (msg.content.startsWith('ㅁ'))
