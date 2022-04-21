@@ -1,6 +1,6 @@
 const db = require('quick.db');
 const { MessageEmbed } = require('discord.js');
-const img = 'https://blog.kakaocdn.net/dn/qpua2/btqyqx0g6YA/NYd5fopPNOBPwxDiYIXDK1/img.jpg';
+const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 module.exports = {
   name: "경고수",
@@ -9,6 +9,16 @@ module.exports = {
     const id = msg.author.id;
     const guild = msg.guild.id;
     const _temp = msg.content.slice(5);
+
+    if (_temp != '' && (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>'))) {
+      const answerMessage = new MessageEmbed()
+        .setAuthor('검열봇', img)
+        .setTitle('**⚠️ 경고 수**')
+        .setColor(0xBDBDBD)
+        .setDescription(`**${_temp} (이)라는 유저는 존재하지 않습니다!**`);
+      msg.reply({ embeds: [answerMessage] });
+      return;
+    }
 
     if (_temp == '') {
       const answerMessage = new MessageEmbed()
@@ -24,16 +34,6 @@ module.exports = {
     const temp = msg.mentions.users.first().id;
     const warn_get = `warn.${guild}.${temp}`;
     const warn = db.get(warn_get);
-
-    if (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>')) {
-      const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
-        .setTitle('**⚠️ 경고 수**')
-        .setColor(0xBDBDBD)
-        .setDescription(`**${_temp} (이)라는 유저는 존재하지 않습니다!**`);
-      msg.reply({ embeds: [answerMessage] });
-      return;
-    }
 
     if (!warn) {
       const answerMessage = new MessageEmbed()

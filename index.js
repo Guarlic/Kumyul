@@ -22,7 +22,7 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-const img = 'https://blog.kakaocdn.net/dn/qpua2/btqyqx0g6YA/NYd5fopPNOBPwxDiYIXDK1/img.jpg';
+const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 client.once('ready', () => {
   console.log(`\n${client.user.tag} (검열봇) 이 준비되었습니다!`);

@@ -1,6 +1,6 @@
 const db = require('quick.db');
 const { MessageEmbed } = require('discord.js');
-const img = 'https://blog.kakaocdn.net/dn/qpua2/btqyqx0g6YA/NYd5fopPNOBPwxDiYIXDK1/img.jpg';
+const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 module.exports = {
   name: "경고초기화",
@@ -18,7 +18,7 @@ module.exports = {
     const warn_get = `warn.${guild}.${user_id}`;
     const warn = db.get(warn_get);
 
-    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&')) {
+    if (temp != '' && (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&'))) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**경고 초기화**')
