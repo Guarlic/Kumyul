@@ -31,9 +31,20 @@ module.exports = {
       return;
     }
 
-    const temp = msg.mentions.users.first().id;
+    const target = msg.mentions.users.first();
+    const temp = target.id;
     const warn_get = `warn.${guild}.${temp}`;
     const warn = db.get(warn_get);
+
+    if (target.bot) {
+      const answerMessage = new MessageEmbed()
+        .setAuthor('검열봇', img)
+        .setTitle('**⚠️ 경고 수**')
+        .setColor(0xBDBDBD)
+        .setDescription(`**${_temp} (이)라는 유저는 봇입니다!**`);
+      msg.reply({ embeds: [answerMessage] });
+      return;
+    }
 
     if (!warn) {
       const answerMessage = new MessageEmbed()

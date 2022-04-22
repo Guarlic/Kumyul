@@ -21,6 +21,16 @@ module.exports = {
       return;
     }
 
+    if (user.bot) {
+      const answerMessage = new MessageEmbed()
+        .setAuthor('검열봇', img)
+        .setTitle('**⚠️ 경고 수**')
+        .setColor(0xBDBDBD)
+        .setDescription(`**${temp} (이)라는 유저는 봇입니다!**`);
+      msg.reply({ embeds: [answerMessage] });
+      return;
+    }
+
     if (user == NaN) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
@@ -46,7 +56,7 @@ module.exports = {
       .setTitle('**경고 추가**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${warn_num} 만큼 추가합니다.`)
-      .addField('누적 경고수', `${save == NaN ? 0 : save} -> ${warn}`);
+      .addField('누적 경고수', `${save == undefined ? 0 : save} -> ${warn}`);
     msg.reply({ embeds: [answerMessage] });
   }
 }

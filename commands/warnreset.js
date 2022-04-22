@@ -10,13 +10,15 @@ module.exports = {
     const guild = msg.guild.id;
     const user = msg.mentions.users.first();
     const temp = msg.content.slice(7);
-    let user_id;
+    let target;
 
-    if (user != null && temp.startsWith('<@')) user_id = user.id;
-    else user_id = id;
+    if (user != null && temp.startsWith('<@') && temp.endsWith('>') && !temp.startsWith('<@&')) target = user.id;
+    else target = id;
 
-    const warn_get = `warn.${guild}.${user_id}`;
+    const warn_get = `warn.${guild}.${target}`;
     const warn = db.get(warn_get);
+
+    console.log(user);
 
     if (temp != '' && (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&'))) {
       const answerMessage = new MessageEmbed()
@@ -27,10 +29,20 @@ module.exports = {
       return;
     }
 
+    if (user != null && user.bot) {
+      const answerMessage = new MessageEmbed()
+        .setAuthor('검열봇', img)
+        .setTitle('**경고 초기화**')
+        .setColor(0xBDBDBD)
+        .setDescription(`**${_temp} (이)라는 유저는 봇입니다!**`);
+      msg.reply({ embeds: [answerMessage] });
+      return;
+    }
+
     const answerMessage = new MessageEmbed()
       .setAuthor('검열봇', img)
       .setTitle('**경고 초기화**')
-      .setDescription(`<@${user_id}> 님의 경고를 초기화합니다!`)
+      .setDescription(`<@${target}> 님의 경고를 초기화합니다!`)
       .addField('누적 경고수', `${warn == NaN ? 0 : warn} -> 0`);
     db.set(warn_get, 0);
     msg.reply({ embeds: [answerMessage] });

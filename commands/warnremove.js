@@ -15,7 +15,7 @@ module.exports = {
     if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&')) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
-        .setTitle('**경고 초기화**')
+        .setTitle('**경고 차감**')
         .setDescription(`${temp} (이)라는 유저는 존재하지 않습니다!`);
       msg.reply({ embeds: [answerMessage] });
       return;
@@ -24,6 +24,16 @@ module.exports = {
     const target = user.id;
     const warn_get = `warn.${guild}.${target}`;
     let warn = db.get(warn_get);
+
+    if (user.bot) {
+      const answerMessage = new MessageEmbed()
+        .setAuthor('검열봇', img)
+        .setTitle('**경고 차감**')
+        .setColor(0xBDBDBD)
+        .setDescription(`**${temp} (이)라는 유저는 봇입니다!**`);
+      msg.reply({ embeds: [answerMessage] });
+      return;
+    }
 
     if (warn + warn_num < 0 || warn == NaN) {
       warn_num = 0 - warn;
