@@ -9,10 +9,11 @@ module.exports = {
     const user = msg.mentions.users.first();
     const guild = msg.guild.id;
     const temp = msg.content.slice(6);
+    const target = user.id;
     let warn_num = 0 - Number(msg.content.slice(28));
     let flag = false;
 
-    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&')) {
+    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || target == undefined) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**경고 차감**')
@@ -21,7 +22,6 @@ module.exports = {
       return;
     }
 
-    const target = user.id;
     const warn_get = `warn.${guild}.${target}`;
     let warn = db.get(warn_get);
 

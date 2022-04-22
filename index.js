@@ -43,6 +43,14 @@ client.on('messageCreate', async msg => {
   const warn_get = `warn.${guild}.${id}`;
   const warn = db.get(warn_get);
 
+  if (warn >= 100) {
+    db.set(`warn.${guild}.${id}`, 0);
+    msg.channel.send(`경고가 100회가 넘어 <@${id}> 킥 되었습니다!`);
+    msg.guild.members.kick(msg.author.id)
+      .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
+      .catch(console.error);
+  }
+
   if (warn == NaN) db.set(warn_get, 0);
 
   if (msg.content == '욕설') msg.reply('이걸 진짜로 해보네;');
@@ -61,12 +69,6 @@ client.on('messageCreate', async msg => {
       msg.delete();
       msg.channel.send({ embeds: [alertMessage] }).then(msg => msg.react('😡'));
 
-      if (warn >= 100) {
-        db.set(`warn.${guild}.${id}`, 0);
-        msg.guild.members.ban(msg.author.id)
-          .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
-          .catch(console.error);
-      }
       return;
     }
   }
@@ -83,7 +85,7 @@ client.on('messageCreate', async msg => {
         .setDescription(`${datalist2[i].Output} <@${id}>님!! ${msg.content}!! 멋진말이에요!${!warn ? '\n경고횟수가 0이기 때문에 더이상 감소가 불가능해요!' : ''}`)
         .addField('누적 경고 수', `${warn} -> ${warn ? warn - 1 : 0}`);
       msg.react('♥️');
-      msg.channel.send({ embeds: [thankMessage] }).then(msg => msg.react('♥️'));
+      msg.reply({ embeds: [thankMessage] }).then(msg => msg.react('♥️'));
       return;
     }
   }

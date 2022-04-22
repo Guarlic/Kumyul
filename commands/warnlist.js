@@ -9,8 +9,10 @@ module.exports = {
     const id = msg.author.id;
     const guild = msg.guild.id;
     const _temp = msg.content.slice(5);
+    const user = msg.mentions.users.first();
+    const target = user.id;
 
-    if (_temp != '' && (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>'))) {
+    if (_temp != '' && (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>') || target == undefined)) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**⚠️ 경고 수**')
@@ -31,12 +33,10 @@ module.exports = {
       return;
     }
 
-    const target = msg.mentions.users.first();
-    const temp = target.id;
-    const warn_get = `warn.${guild}.${temp}`;
+    const warn_get = `warn.${guild}.${target}`;
     const warn = db.get(warn_get);
 
-    if (target.bot) {
+    if (user.bot) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**⚠️ 경고 수**')
@@ -52,7 +52,7 @@ module.exports = {
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${temp != id ? `${_temp} 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
+        .addField('누적 경고수', `${target != id ? `${_temp} 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
@@ -62,7 +62,7 @@ module.exports = {
       .setTitle('**⚠️ 경고 수**')
       .setColor(0xBDBDBD)
       .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)
-      .addField('누적 경고수', `${temp != id ? `${warn ? warn : `현재 ${_temp} 님은 경고가 없습니다!`}` : `${warn ? warn : `당신은 현재 경고가 없습니다!`}`}`);
+      .addField('누적 경고수', `${target != id ? `${warn ? warn : `현재 ${_temp} 님은 경고가 없습니다!`}` : `${warn ? warn : `당신은 현재 경고가 없습니다!`}`}`);
     msg.reply({ embeds: [answerMessage] });
   }
 }

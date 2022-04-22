@@ -7,12 +7,13 @@ module.exports = {
   description: "경고를 추가합니다.",
   execute(msg) {
     const user = msg.mentions.users.first();
+    const target = user.id;
     const temp = msg.content.slice(4);
     const guild = msg.guild.id;
     const warn_num = temp != ' ' ? Number(msg.content.slice(26)) : Number(msg.content.slice(4));
     const id = msg.author.id;
 
-    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&')) {
+    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || target == undefined) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)
         .setTitle('**경고 초기화**')
@@ -40,7 +41,6 @@ module.exports = {
       return;
     }
 
-    const target = user.id;
     const warn_get = `warn.${guild}.${target}`;
     let warn = db.get(warn_get);
 
