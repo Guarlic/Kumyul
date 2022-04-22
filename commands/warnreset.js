@@ -18,8 +18,6 @@ module.exports = {
     const warn_get = `warn.${guild}.${target}`;
     const warn = db.get(warn_get);
 
-    console.log(user);
-
     if (temp != '' && (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&'))) {
       const answerMessage = new MessageEmbed()
         .setAuthor('검열봇', img)

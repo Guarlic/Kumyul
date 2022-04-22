@@ -47,15 +47,6 @@ client.on('messageCreate', async msg => {
 
   if (msg.content == '욕설') msg.reply('이걸 진짜로 해보네;');
 
-  try {
-    if (msg.content.startsWith('ㅁ'))
-      client.commands.get(command).execute(msg, args);
-  }
-  catch (error) {
-    if (msg.content.startsWith('ㅁ'))
-      console.error(error);
-  }
-
   for (var i = 0; i < datalist.length; i++) {
     if (msg.content.search(datalist[i].DataName) != -1) {
       console.log('욕설이 감지되었습니다!');
@@ -96,6 +87,11 @@ client.on('messageCreate', async msg => {
       return;
     }
   }
+
+  if (!client.commands.has(command)) return;
+
+  try { client.commands.get(command).execute(msg, args); }
+  catch (error) { console.error(error); }
 });
 
 client.login(token);
