@@ -6,7 +6,7 @@ module.exports = {
   name: "경고",
   description: "경고를 추가합니다.",
   execute(msg, args) {
-    if (args != 2) {
+    if (args != 3) {
       msg.reply('어.. ㅁ도움말 경고 라고 해볼래요?');
       return;
     }

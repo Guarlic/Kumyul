@@ -3,25 +3,26 @@ const { MessageEmbed } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 module.exports = {
-  name: "경고차감",
-  description: "경고를 차감합니다.",
+  name: "경고지정",
+  description: "대상의 경고를 지정합니다.",
   execute(msg, args) {
-    if (args != 3) {
-      msg.reply('어.. ㅁ도움말 경고차감 이라고 해볼래요?');
+    const id = msg.author.id;
+    const guild = msg.guild.id;
+    const temp = msg.content.slice(6);
+    const user = msg.mentions.users.first();
+    const warn_num = Number(msg.content.slice(28));
+
+    if (args > 2) {
+      msg.reply('어.. ㅁ도움말 경고지정 이라고 해볼래요?');
       return;
     }
 
-    const user = msg.mentions.users.first();
-    const guild = msg.guild.id;
-    const temp = msg.content.slice(6);
-    let warn_num = 0 - Number(msg.content.slice(28));
-    let flag = false;
-
-    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || user.id == undefined) {
+    if (temp.startsWith('<@&') || !temp.startsWith('<@') && !temp.endsWith('>') || user.id == undefined) {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
-        .setTitle('**경고 차감**')
-        .setDescription(`${temp} (이)라는 유저는 존재하지 않습니다!`);
+        .setTitle('**경고 지정**')
+        .setColor(0xBDBDBD)
+        .setDescription(`**${temp} (이)라는 유저는 존재하지 않습니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
@@ -33,32 +34,31 @@ module.exports = {
     if (user.bot) {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
-        .setTitle('**경고 차감**')
+        .setTitle('**경고 지정**')
         .setColor(0xBDBDBD)
         .setDescription(`**<@${target}> (이)라는 유저는 봇입니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
 
-    if (warn + warn_num < 0 || warn == NaN) {
-      warn_num = 0 - warn;
-      flag = true;
+    if (warn_num < 0) {
+      msg.reply(`${warn_num}은 불가능해요!`);
+      return;
     }
 
     const save = warn;
 
-    if (warn == NaN) db.set(warn_get, warn_num);
-    else db.add(warn_get, warn_num);
+    db.set(warn_get, warn_num);
 
     warn = db.get(warn_get);
 
     const answerMessage = new MessageEmbed()
       .setAuthor('시덱이', img)
-      .setTitle('**경고 차감**')
+      .setTitle('**경고 지정**')
       .setColor(0xBDBDBD)
-      .setDescription(`<@${target}> 님의 경고를 ${0 - warn_num} 만큼 차감합니다.\n${flag ? '경고 차감 횟수가 기존 경고보다 많아 0이 되었습니다!' : ''}`)
-      .addField('누적 경고수', `${save == NaN ? 0 : save} -> ${flag ? 0 : warn}`);
-
+      .setDescription(`<@${target}> 님의 경고를 ${warn_num} 으로 설정합니다.`)
+      .addField('누적 경고수', `${save == NaN ? 0 : save} -> ${warn}`);
+    
     msg.reply({ embeds: [answerMessage] });
   }
 }

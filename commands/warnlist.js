@@ -6,15 +6,15 @@ module.exports = {
   name: "경고수",
   description: "경고수를 표시합니다.",
   execute(msg, args) {
-    if (args != 2) {
-      msg.reply('어.. ㅁ도움말 경고수 라고 해볼래요?');
-      return;
-    }
-
     const id = msg.author.id;
     const guild = msg.guild.id;
     const _temp = msg.content.slice(5);
     const user = msg.mentions.users.first();
+
+    if (args > 2) {
+      msg.reply('어.. ㅁ도움말 경고수 라고 해볼래요?');
+      return;
+    }
 
     if (_temp != '' && (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>') || user.id == undefined)) {
       const answerMessage = new MessageEmbed()
