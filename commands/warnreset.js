@@ -20,7 +20,7 @@ module.exports = {
 
     if (temp != '' && (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&'))) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**경고 초기화**')
         .setDescription(`${temp} (이)라는 유저는 존재하지 않습니다!`);
       msg.reply({ embeds: [answerMessage] });
@@ -29,7 +29,7 @@ module.exports = {
 
     if (user != null && user.bot) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**경고 초기화**')
         .setColor(0xBDBDBD)
         .setDescription(`**${_temp} (이)라는 유저는 봇입니다!**`);
@@ -38,7 +38,7 @@ module.exports = {
     }
 
     const answerMessage = new MessageEmbed()
-      .setAuthor('검열봇', img)
+      .setAuthor('시덱이', img)
       .setTitle('**경고 초기화**')
       .setDescription(`<@${target}> 님의 경고를 초기화합니다!`)
       .addField('누적 경고수', `${warn == NaN ? 0 : warn} -> 0`);

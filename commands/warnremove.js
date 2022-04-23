@@ -9,25 +9,25 @@ module.exports = {
     const user = msg.mentions.users.first();
     const guild = msg.guild.id;
     const temp = msg.content.slice(6);
-    const target = user.id;
     let warn_num = 0 - Number(msg.content.slice(28));
     let flag = false;
 
-    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || target == undefined) {
+    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || user.id == undefined) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**경고 차감**')
         .setDescription(`${temp} (이)라는 유저는 존재하지 않습니다!`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
 
+    const target = user.id;
     const warn_get = `warn.${guild}.${target}`;
     let warn = db.get(warn_get);
 
     if (user.bot) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**경고 차감**')
         .setColor(0xBDBDBD)
         .setDescription(`**${temp} (이)라는 유저는 봇입니다!**`);
@@ -48,7 +48,7 @@ module.exports = {
     warn = db.get(warn_get);
 
     const answerMessage = new MessageEmbed()
-      .setAuthor('검열봇', img)
+      .setAuthor('시덱이', img)
       .setTitle('**경고 차감**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${0 - warn_num} 만큼 차감합니다.\n${flag ? '경고 차감 횟수가 기존 경고보다 많아 0이 되었습니다!' : ''}`)

@@ -7,24 +7,25 @@ module.exports = {
   description: "경고를 추가합니다.",
   execute(msg) {
     const user = msg.mentions.users.first();
-    const target = user.id;
     const temp = msg.content.slice(4);
     const guild = msg.guild.id;
     const warn_num = temp != ' ' ? Number(msg.content.slice(26)) : Number(msg.content.slice(4));
     const id = msg.author.id;
 
-    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || target == undefined) {
+    if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || user.id == undefined) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**경고 초기화**')
         .setDescription(`${temp} (이)라는 유저는 존재하지 않습니다!`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
 
+    const target = user.id;
+
     if (user.bot) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**${temp} (이)라는 유저는 봇입니다!**`);
@@ -34,7 +35,7 @@ module.exports = {
 
     if (user == NaN) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**경고 추가**')
         .setDescription(`${temp} (이)라는 유저는 존재하지 않습니다!`);
       msg.reply({ embeds: [answerMessage] });
@@ -52,7 +53,7 @@ module.exports = {
     warn = db.get(warn_get);
 
     const answerMessage = new MessageEmbed()
-      .setAuthor('검열봇', img)
+      .setAuthor('시덱이', img)
       .setTitle('**경고 추가**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${warn_num} 만큼 추가합니다.`)

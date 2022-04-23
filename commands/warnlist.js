@@ -10,11 +10,10 @@ module.exports = {
     const guild = msg.guild.id;
     const _temp = msg.content.slice(5);
     const user = msg.mentions.users.first();
-    const target = user.id;
 
-    if (_temp != '' && (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>') || target == undefined)) {
+    if (_temp != '' && (_temp.startsWith('<@&') || !_temp.startsWith('<@') && !_temp.endsWith('>') || user.id == undefined)) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**${_temp} (이)라는 유저는 존재하지 않습니다!**`);
@@ -24,7 +23,7 @@ module.exports = {
 
     if (_temp == '') {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**현재 <@${id}> 님의 경고 횟수입니다!**`)
@@ -33,12 +32,13 @@ module.exports = {
       return;
     }
 
+    const target = user.id;
     const warn_get = `warn.${guild}.${target}`;
     const warn = db.get(warn_get);
 
     if (user.bot) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**${_temp} (이)라는 유저는 봇입니다!**`);
@@ -48,7 +48,7 @@ module.exports = {
 
     if (!warn) {
       const answerMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)
@@ -58,7 +58,7 @@ module.exports = {
     }
 
     const answerMessage = new MessageEmbed()
-      .setAuthor('검열봇', img)
+      .setAuthor('시덱이', img)
       .setTitle('**⚠️ 경고 수**')
       .setColor(0xBDBDBD)
       .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)

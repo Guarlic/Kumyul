@@ -10,7 +10,7 @@ module.exports = {
 
     if (after == '' || after == '도움말') {
       helpMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
         .setColor(0xBDBDBD)
         .addFields(
@@ -24,21 +24,21 @@ module.exports = {
     }
     else if (after == '경고 증감') {
       helpMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
         .setColor(0xBDBDBD)
         .addField('경고 증가, 차감', '욕설 사용 시 경고가 증가되고, 좋은 단어 사용 시 경고가 차감됩니다.\n(수동으로도 가능합니다)');
     }
     else if (after == '경고수') {
       helpMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
         .setColor(0xBDBDBD)
         .addField('경고수', 'ㅁ경고수 -> 본인의 경고수\nㅁ경고수 @유저 -> 유저의 경고수\n를 표시합니다.');
     }
     else if (after == '경고 초기화') {
       helpMessage = new MessageEmbed()
-        .setAuthor('검열봇', img)
+        .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
         .setColor(0xBDBDBD)
         .addField('경고 초기화', 'ㅁ경고초기화 @유저 -> 유저의 경고를 초기화합니다.');

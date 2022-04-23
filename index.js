@@ -23,9 +23,10 @@ for (const file of commandFiles) {
 }
 
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
+const prefix = 'ㅁ';
 
 client.once('ready', () => {
-  console.log(`\n${client.user.tag} (검열봇) 이 준비되었습니다!`);
+  console.log(`\n${client.user.tag} (검열봇 시덱이) 이 준비되었습니다!`);
   client.user.setActivity('욕설', { type: "LISTENING" });
 });
 
@@ -47,7 +48,7 @@ client.on('messageCreate', async msg => {
     db.set(`warn.${guild}.${id}`, 0);
     msg.channel.send(`경고가 100회가 넘어 <@${id}> 킥 되었습니다!`);
     msg.guild.members.kick(msg.author.id)
-      .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
+      .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 킥했습니다.`))
       .catch(console.error);
   }
 
@@ -90,7 +91,7 @@ client.on('messageCreate', async msg => {
     }
   }
 
-  if (!client.commands.has(command)) return;
+  if (!client.commands.has(command) || !msg.content.startsWith(prefix)) return;
 
   try { client.commands.get(command).execute(msg, args); }
   catch (error) { console.error(error); }
