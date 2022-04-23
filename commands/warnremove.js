@@ -5,7 +5,12 @@ const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502
 module.exports = {
   name: "경고차감",
   description: "경고를 차감합니다.",
-  execute(msg) {
+  execute(msg, args) {
+    if (args != 2) {
+      msg.reply('어.. ㅁ도움말 경고차감 이라고 해볼래요?');
+      return;
+    }
+
     const user = msg.mentions.users.first();
     const guild = msg.guild.id;
     const temp = msg.content.slice(6);
@@ -30,7 +35,7 @@ module.exports = {
         .setAuthor('시덱이', img)
         .setTitle('**경고 차감**')
         .setColor(0xBDBDBD)
-        .setDescription(`**${temp} (이)라는 유저는 봇입니다!**`);
+        .setDescription(`**<@${target}> (이)라는 유저는 봇입니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }

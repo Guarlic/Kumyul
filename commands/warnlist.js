@@ -5,7 +5,12 @@ const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502
 module.exports = {
   name: "경고수",
   description: "경고수를 표시합니다.",
-  execute(msg) {
+  execute(msg, args) {
+    if (args != 2) {
+      msg.reply('어.. ㅁ도움말 경고수 라고 해볼래요?');
+      return;
+    }
+
     const id = msg.author.id;
     const guild = msg.guild.id;
     const _temp = msg.content.slice(5);
@@ -41,7 +46,7 @@ module.exports = {
         .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
-        .setDescription(`**${_temp} (이)라는 유저는 봇입니다!**`);
+        .setDescription(`**<@${target}> (이)라는 유저는 봇입니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }

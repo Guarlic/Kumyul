@@ -5,7 +5,7 @@ const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502
 module.exports = {
   name: "경고초기화",
   description: "경고를 초기화합니다.",
-  execute(msg) {
+  execute(msg, args) {
     const id = msg.author.id;
     const guild = msg.guild.id;
     const user = msg.mentions.users.first();
@@ -15,6 +15,11 @@ module.exports = {
     if (user != null && temp.startsWith('<@') && temp.endsWith('>') && !temp.startsWith('<@&')) target = user.id;
     else target = id;
 
+    if (temp != '' && args != 2 && target == undefined) {
+      msg.reply('어.. ㅁ도움말 경고초기화 라고 해볼래요?');
+      return;
+    }
+
     const warn_get = `warn.${guild}.${target}`;
     const warn = db.get(warn_get);
 
@@ -22,6 +27,7 @@ module.exports = {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**경고 초기화**')
+        .setColor(0xBDBDBD)
         .setDescription(`${temp} (이)라는 유저는 존재하지 않습니다!`);
       msg.reply({ embeds: [answerMessage] });
       return;
@@ -32,7 +38,7 @@ module.exports = {
         .setAuthor('시덱이', img)
         .setTitle('**경고 초기화**')
         .setColor(0xBDBDBD)
-        .setDescription(`**${_temp} (이)라는 유저는 봇입니다!**`);
+        .setDescription(`**<@${target}> (이)라는 유저는 봇입니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
@@ -40,6 +46,7 @@ module.exports = {
     const answerMessage = new MessageEmbed()
       .setAuthor('시덱이', img)
       .setTitle('**경고 초기화**')
+      .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 초기화합니다!`)
       .addField('누적 경고수', `${warn == NaN ? 0 : warn} -> 0`);
     db.set(warn_get, 0);

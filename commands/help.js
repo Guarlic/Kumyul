@@ -22,7 +22,7 @@ module.exports = {
           { name: '경고 초기화', value: 'ㅁ경고초기화 @유저 -> 유저의 경고를 초기화합니다.' }
         );
     }
-    else if (after == '경고 증감') {
+    else if (after == '경고 증감' || after == '경고' || after == '경고차감') {
       helpMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
@@ -42,6 +42,10 @@ module.exports = {
         .setTitle('**📜 도움말**')
         .setColor(0xBDBDBD)
         .addField('경고 초기화', 'ㅁ경고초기화 @유저 -> 유저의 경고를 초기화합니다.');
+    }
+    else {
+      msg.reply('어.. ㅁ도움말 이라고 해볼래요?');
+      return;
     }
 
     msg.reply({ embeds: [helpMessage] });
