@@ -57,7 +57,7 @@ module.exports = {
       .setTitle('**경고 차감**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${0 - warn_num} 만큼 차감합니다.\n${flag ? '경고 차감 횟수가 기존 경고보다 많아 0이 되었습니다!' : ''}`)
-      .addField('누적 경고수', `${save == NaN ? 0 : save} -> ${flag ? 0 : warn}`);
+      .addField('누적 경고수', `${save == NaN || save == undefined ? 0 : save} -> ${flag ? 0 : warn}`);
 
     msg.reply({ embeds: [answerMessage] });
   }

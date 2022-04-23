@@ -6,6 +6,12 @@ module.exports = {
   name: "경고지정",
   description: "대상의 경고를 지정합니다.",
   execute(msg, args) {
+    const perms = msg.member.permissions;
+    if (!perms.has('ADMINISTRATOR')) {
+      msg.reply('이 명령어를 사용하려면 관리자 권한이 있어야해요!');
+      return;
+    }
+
     const id = msg.author.id;
     const guild = msg.guild.id;
     const temp = msg.content.slice(6);
@@ -57,7 +63,7 @@ module.exports = {
       .setTitle('**경고 지정**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${warn_num} 으로 설정합니다.`)
-      .addField('누적 경고수', `${save == NaN ? 0 : save} -> ${warn}`);
+      .addField('누적 경고수', `${save == NaN || save == undefined ? 0 : save} -> ${warn}`);
     
     msg.reply({ embeds: [answerMessage] });
   }

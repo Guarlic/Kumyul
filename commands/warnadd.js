@@ -6,6 +6,12 @@ module.exports = {
   name: "경고",
   description: "경고를 추가합니다.",
   execute(msg, args) {
+    const perms = msg.member.permissions;
+    if (!perms.has('ADMINISTRATOR')) {
+      msg.reply('이 명령어를 사용하려면 관리자 권한이 있어야해요!');
+      return;
+    }
+
     if (args != 3) {
       msg.reply('어.. ㅁ도움말 경고 라고 해볼래요?');
       return;
@@ -62,7 +68,7 @@ module.exports = {
       .setTitle('**경고 추가**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 ${warn_num} 만큼 추가합니다.`)
-      .addField('누적 경고수', `${save == undefined ? 0 : save} -> ${warn}`);
+      .addField('누적 경고수', `${save == NaN || save == undefined ? 0 : save} -> ${warn}`);
     msg.reply({ embeds: [answerMessage] });
   }
 }

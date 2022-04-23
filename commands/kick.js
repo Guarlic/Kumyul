@@ -4,6 +4,12 @@ module.exports = {
   name: "킥",
   description: "대상을 킥합니다.",
   execute(msg) {
+    const perms = msg.member.permissions;
+    if (!perms.has('ADMINISTRATOR')) {
+      msg.reply('이 명령어를 사용하려면 관리자 권한이 있어야해요!');
+      return;
+    }
+
     const target = msg.mentions.users.first();
     const guild = msg.guild.id;
 

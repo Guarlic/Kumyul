@@ -6,6 +6,12 @@ module.exports = {
   name: "경고초기화",
   description: "경고를 초기화합니다.",
   execute(msg, args) {
+    const perms = msg.member.permissions;
+    if (!perms.has('ADMINISTRATOR')) {
+      msg.reply('이 명령어를 사용하려면 관리자 권한이 있어야해요!');
+      return;
+    }
+
     const id = msg.author.id;
     const guild = msg.guild.id;
     const user = msg.mentions.users.first();
