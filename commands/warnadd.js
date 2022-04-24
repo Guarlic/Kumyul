@@ -12,7 +12,7 @@ module.exports = {
       return;
     }
 
-    if (args != 3) {
+    if (args > 3 || args < 2) {
       msg.reply('어.. ㅁ도움말 경고 라고 해볼래요?');
       return;
     }
@@ -20,8 +20,11 @@ module.exports = {
     const user = msg.mentions.users.first();
     const temp = msg.content.slice(4);
     const guild = msg.guild.id;
-    const warn_num = temp != ' ' ? Number(msg.content.slice(26)) : Number(msg.content.slice(4));
+    const warn_text = temp != ' ' ? msg.content.slice(26) : msg.content.slice(4);
+    let warn_num = temp != ' ' ? Number(msg.content.slice(26)) : Number(msg.content.slice(4));
     const id = msg.author.id;
+
+    if (warn_text == '') warn_num = 1;
 
     if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || user.id == undefined) {
       const answerMessage = new MessageEmbed()
@@ -70,5 +73,13 @@ module.exports = {
       .setDescription(`<@${target}> 님의 경고를 ${warn_num} 만큼 추가합니다.`)
       .addField('누적 경고수', `${save == NaN || save == undefined ? 0 : save} -> ${warn}`);
     msg.reply({ embeds: [answerMessage] });
+
+    if (warn >= 100) {
+      db.set(`warn.${guild}.${id}`, 0);
+      msg.channel.send(`경고가 100회가 넘어 <@${id}> 님이 밴 되었습니다!`);
+      msg.guild.members.ban(msg.author.id)
+        .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
+        .catch(console.error);
+    }
   }
 }

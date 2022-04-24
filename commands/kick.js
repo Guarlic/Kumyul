@@ -23,6 +23,7 @@ module.exports = {
 
     db.set(warn_get, 0);
     msg.reply('대상을 킥합니다.');
+
     msg.guild.members.kick(id)
       .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 킥했습니다.`))
       .catch(console.error);
