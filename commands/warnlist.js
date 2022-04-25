@@ -11,7 +11,7 @@ module.exports = {
     const _temp = msg.content.slice(5);
     const user = msg.mentions.users.first();
 
-    if (args > 2) {
+    if (args.length > 2) {
       msg.reply('어.. ㅁ도움말 경고수 라고 해볼래요?');
       return;
     }

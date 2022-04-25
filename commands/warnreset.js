@@ -21,7 +21,7 @@ module.exports = {
     if (user != null && temp.startsWith('<@') && temp.endsWith('>') && !temp.startsWith('<@&')) target = user.id;
     else target = id;
 
-    if (temp != '' && args != 2 && target == undefined) {
+    if (temp != '' && args.length != 2 && target == undefined) {
       msg.reply('어.. ㅁ도움말 경고초기화 라고 해볼래요?');
       return;
     }

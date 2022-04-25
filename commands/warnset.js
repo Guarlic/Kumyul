@@ -12,16 +12,16 @@ module.exports = {
       return;
     }
 
+    if (args.length != 2) {
+      msg.reply('어.. ㅁ도움말 경고지정 이라고 해볼래요?');
+      return;
+    }
+
     const id = msg.author.id;
     const guild = msg.guild.id;
     const temp = msg.content.slice(6);
     const user = msg.mentions.users.first();
     const warn_num = Number(msg.content.slice(28));
-
-    if (args > 2) {
-      msg.reply('어.. ㅁ도움말 경고지정 이라고 해볼래요?');
-      return;
-    }
 
     if (temp.startsWith('<@&') || !temp.startsWith('<@') && !temp.endsWith('>') || user.id == undefined) {
       const answerMessage = new MessageEmbed()

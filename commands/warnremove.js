@@ -6,13 +6,13 @@ module.exports = {
   name: "경고차감",
   description: "경고를 차감합니다.",
   execute(msg, args) {
-    const perms = msg.members.permissions;
+    const perms = msg.member.permissions;
     if (!perms.has('ADMINISTRATOR')) {
       msg.reply('이 명령어를 사용하려면 관리자 권한이 있어야해요!');
       return;
     }
 
-    if (args > 3 || args < 2) {
+    if (args.length != 2) {
       msg.reply('어.. ㅁ도움말 경고차감 이라고 해볼래요?');
       return;
     }

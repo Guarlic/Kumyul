@@ -12,7 +12,7 @@ module.exports = {
       return;
     }
 
-    if (args > 3 || args < 2) {
+    if (args.length != 2) {
       msg.reply('어.. ㅁ도움말 경고 라고 해볼래요?');
       return;
     }
@@ -20,11 +20,8 @@ module.exports = {
     const user = msg.mentions.users.first();
     const temp = msg.content.slice(4);
     const guild = msg.guild.id;
-    const warn_text = temp != ' ' ? msg.content.slice(26) : msg.content.slice(4);
     let warn_num = temp != ' ' ? Number(msg.content.slice(26)) : Number(msg.content.slice(4));
     const id = msg.author.id;
-
-    if (warn_text == '') warn_num = 1;
 
     if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || user.id == undefined) {
       const answerMessage = new MessageEmbed()
