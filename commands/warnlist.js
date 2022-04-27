@@ -21,7 +21,7 @@ module.exports = {
         .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
-        .setDescription(`**${_temp} (이)라는 유저는 존재하지 않습니다!**`);
+        .setDescription(`**<@${target} (이)라는 유저는 존재하지 않습니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
@@ -56,8 +56,8 @@ module.exports = {
         .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
-        .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${target != id ? `${_temp} 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
+        .setDescription(`**현재 <@${target}> 님의 경고 횟수입니다!**`)
+        .addField('누적 경고수', `${target != id ? `<@${target}> 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
@@ -66,8 +66,8 @@ module.exports = {
       .setAuthor('시덱이', img)
       .setTitle('**⚠️ 경고 수**')
       .setColor(0xBDBDBD)
-      .setDescription(`**현재 ${_temp} 님의 경고 횟수입니다!**`)
-      .addField('누적 경고수', `${target != id ? `${warn ? warn : `현재 ${_temp} 님은 경고가 없습니다!`}` : `${warn ? warn : `당신은 현재 경고가 없습니다!`}`}`);
+      .setDescription(`**현재 <@${target}> 님의 경고 횟수입니다!**`)
+      .addField('누적 경고수', `${target != id ? `${warn ? warn : `현재 <@${target}> 님은 경고가 없습니다!`}` : `${warn ? warn : `당신은 현재 경고가 없습니다!`}`}`);
     msg.reply({ embeds: [answerMessage] });
   }
 }

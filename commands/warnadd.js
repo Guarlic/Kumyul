@@ -72,9 +72,9 @@ module.exports = {
     msg.reply({ embeds: [answerMessage] });
 
     if (warn >= 100) {
-      db.set(`warn.${guild}.${id}`, 0);
-      msg.channel.send(`경고가 100회가 넘어 <@${id}> 님이 밴 되었습니다!`);
-      msg.guild.members.ban(msg.author.id)
+      db.set(`warn.${guild}.${target}`, 0);
+      msg.channel.send(`경고가 100회가 넘어 <@${target}> 님이 밴 되었습니다!`);
+      msg.guild.members.ban(target)
         .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
         .catch(console.error);
     }
