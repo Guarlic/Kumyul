@@ -45,12 +45,6 @@ client.on('messageCreate', async msg => {
   const warn_get = `warn.${guild}.${id}`;
   const warn = warndb.get(warn_get);
 
-  const kumyul_text = `kumyul.${guild}.text`;
-  const kumyul_output = `kumyul.${guild}.output`;
-  if (kumyul.get(kumyul_text) == null) kumyul.set(kumyul_text, '{}');
-  const kmtxt = await kumyul.get(kumyul_text);
-  const kmotpt = await kumyul.get(kumyul_output);
-
   if (warn >= 100) {
     warndb.set(`warn.${guild}.${id}`, 0);
     msg.channel.send(`경고가 100회가 넘어 <@${id}> 킥 되었습니다!`);
