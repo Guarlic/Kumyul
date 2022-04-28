@@ -1,4 +1,5 @@
 const db = require('quick.db');
+const warndb = new db.table('warn');
 const { MessageEmbed } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
@@ -27,7 +28,7 @@ module.exports = {
     }
 
     const warn_get = `warn.${guild}.${target}`;
-    const warn = db.get(warn_get);
+    const warn = warndb.get(warn_get);
 
     if (temp != '' && (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&'))) {
       const answerMessage = new MessageEmbed()
@@ -55,7 +56,7 @@ module.exports = {
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 초기화합니다!`)
       .addField('누적 경고수', `${warn == NaN ? 0 : warn} -> 0`);
-    db.set(warn_get, 0);
+    warndb.set(warn_get, 0);
     msg.reply({ embeds: [answerMessage] });
   }
 }

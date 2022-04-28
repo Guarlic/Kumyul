@@ -1,4 +1,5 @@
 const db = require('quick.db');
+const warndb = new db.table('warn');
 const { MessageEmbed } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
@@ -54,14 +55,14 @@ module.exports = {
     }
 
     const warn_get = `warn.${guild}.${target}`;
-    let warn = db.get(warn_get);
+    let warn = warndb.get(warn_get);
 
     const save = warn;
 
-    if (warn == NaN || warn == undefined) db.set(warn_get, warn_num);
-    else db.add(warn_get, warn_num);
+    if (warn == NaN || warn == undefined) warndb.set(warn_get, warn_num);
+    else warndb.add(warn_get, warn_num);
 
-    warn = db.get(warn_get);
+    warn = warndb.get(warn_get);
 
     const answerMessage = new MessageEmbed()
       .setAuthor('시덱이', img)
@@ -72,7 +73,7 @@ module.exports = {
     msg.reply({ embeds: [answerMessage] });
 
     if (warn >= 100) {
-      db.set(`warn.${guild}.${target}`, 0);
+      warndb.set(`warn.${guild}.${target}`, 0);
       msg.channel.send(`경고가 100회가 넘어 <@${target}> 님이 밴 되었습니다!`);
       msg.guild.members.ban(target)
         .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))

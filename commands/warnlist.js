@@ -1,4 +1,5 @@
 const db = require('quick.db');
+const warndb = new db.table('warn');
 const { MessageEmbed } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
@@ -32,14 +33,14 @@ module.exports = {
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xBDBDBD)
         .setDescription(`**현재 <@${id}> 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${!db.get(`warn.${guild}.${id}`) ? '당신은 현재 경고가 없습니다!' : db.get(`warn.${guild}.${id}`)}`);
+        .addField('누적 경고수', `${!warndb.get(`warn.${guild}.${id}`) ? '당신은 현재 경고가 없습니다!' : db.get(`warn.${guild}.${id}`)}`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
 
     const target = user.id;
     const warn_get = `warn.${guild}.${target}`;
-    const warn = db.get(warn_get);
+    const warn = warndb.get(warn_get);
 
     if (user.bot) {
       const answerMessage = new MessageEmbed()
