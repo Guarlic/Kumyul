@@ -1,8 +1,8 @@
 const db = require('quick.db');
 
 module.exports = {
-  name: "밴",
-  description: "대상을 밴합니다.",
+  name: '밴',
+  description: '대상을 밴합니다.',
   execute(msg) {
     const perms = msg.member.permissions;
     if (!perms.has('ADMINISTARTOR')) {

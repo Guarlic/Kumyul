@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 module.exports = {
-  name: "경고지정",
-  description: "대상의 경고를 지정합니다.",
+  name: '경고지정',
+  description: '대상의 경고를 지정합니다.',
   execute(msg, args) {
     const perms = msg.member.permissions;
     if (!perms.has('ADMINISTRATOR')) {
@@ -23,6 +23,7 @@ module.exports = {
     const temp = msg.content.slice(6);
     const user = msg.mentions.users.first();
     const warn_num = Number(msg.content.slice(28));
+    const value_get = `value.${guild}`;
 
     if (temp.startsWith('<@&') || !temp.startsWith('<@') && !temp.endsWith('>') || user.id == undefined) {
       const answerMessage = new MessageEmbed()
@@ -68,9 +69,15 @@ module.exports = {
     
     msg.reply({ embeds: [answerMessage] });
 
-    if (warn >= 100) {
+    if (warn >= value) {
+      const perms = user.member.permissions;
+      if (perms.has('ADMINISTARTOR')) {
+        msg.channel.send(`음.. <@${target}> 님은 관리자라서 밴을 못하겠어요..`);
+        return;
+      }
+
       warndb.set(`warn.${guild}.${target}`, 0);
-      msg.channel.send(`경고가 100회가 넘어 <@${target}> 님이 밴 되었습니다!`);
+      msg.channel.send(`경고가 ${value} 회가 넘어 <@${target}> 님이 밴 되었습니다!`);
       msg.guild.members.ban(target)
         .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
         .catch(console.error);

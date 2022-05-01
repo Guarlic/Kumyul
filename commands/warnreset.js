@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 module.exports = {
-  name: "경고초기화",
-  description: "경고를 초기화합니다.",
+  name: '경고초기화',
+  description: '경고를 초기화합니다.',
   execute(msg, args) {
     const perms = msg.member.permissions;
     if (!perms.has('ADMINISTRATOR')) {
@@ -55,7 +55,7 @@ module.exports = {
       .setTitle('**경고 초기화**')
       .setColor(0xBDBDBD)
       .setDescription(`<@${target}> 님의 경고를 초기화합니다!`)
-      .addField('누적 경고수', `${warn == NaN ? 0 : warn} -> 0`);
+      .addField('누적 경고수', `${warn == NaN || warn == undefined ? 0 : warn} -> 0`);
     warndb.set(warn_get, 0);
     msg.reply({ embeds: [answerMessage] });
   }

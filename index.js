@@ -43,11 +43,22 @@ client.on('messageCreate', async msg => {
   const id = msg.author.id;
   const guild = msg.guild.id;
   const warn_get = `warn.${guild}.${id}`;
+  const value_get = `value.${guild}`;
   const warn = warndb.get(warn_get);
 
-  if (warn >= 100) {
+  if (warndb.get(value_get) == undefined) warndb.set(value_get, 100);
+
+  const value = warndb.get(value_get);
+
+  if (warn >= value) {
+    const perms = msg.member.permissions;
+    if (perms.has('ADMINISTARTOR')) {
+      msg.channel.send(`음.. <@${id}> 님은 관리자라서 밴을 못하겠어요..`);
+      return;
+    }
+
     warndb.set(`warn.${guild}.${id}`, 0);
-    msg.channel.send(`경고가 100회가 넘어 <@${id}> 킥 되었습니다!`);
+    msg.channel.send(`경고가 ${value} 회가 넘어 <@${id}> 님이 밴 되었습니다!`);
     msg.guild.members.ban(msg.author.id)
       .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
       .catch(console.error);
@@ -57,38 +68,40 @@ client.on('messageCreate', async msg => {
 
   if (msg.content == '욕설') msg.reply('이걸 진짜로 해보네;');
 
-  for (var i = 0; i < datalist.length; i++) {
-    if (msg.content.search(datalist[i].DataName) != -1) {
-      console.log('욕설이 감지되었습니다!');
-      if (!warn) warndb.set(warn_get, 1);
-      else warndb.add(warn_get, 1);
-      const alertMessage = new MessageEmbed()
-        .setAuthor('시덱이', img)
-        .setTitle('**⚠️ 욕설이 감지되었습니다!**')
-        .setColor(0xBDBDBD)
-        .setDescription(`${datalist[i].Output} <@${msg.author.id}>님!! ${msg.content}(이)라뇨!`)
-        .addField('누적 경고 수', `${warn ? warn : 0} -> ${warn ? warn + 1 : 1}`);
-      msg.delete();
-      msg.channel.send({ embeds: [alertMessage] }).then(msg => msg.react('😡'));
+  if (msg.channel.topic != 'ㅁ검열무시') {
+    for (var i = 0; i < datalist.length; i++) {
+      if (msg.content.search(datalist[i].DataName) != -1) {
+        console.log('욕설이 감지되었습니다!');
+        if (!warn) warndb.set(warn_get, 1);
+        else warndb.add(warn_get, 1);
+        const alertMessage = new MessageEmbed()
+          .setAuthor('시덱이', img)
+          .setTitle('**⚠️ 욕설이 감지되었습니다!**')
+          .setColor(0xBDBDBD)
+          .setDescription(`${datalist[i].Output} <@${msg.author.id}>님!! ${msg.content}(이)라뇨!`)
+          .addField('누적 경고 수', `${warn ? warn : 0} -> ${warn ? warn + 1 : 1}`);
+        msg.delete();
+        msg.channel.send({ embeds: [alertMessage] }).then(msg => msg.react('😡'));
 
-      return;
+        return;
+      }
     }
-  }
 
-  for (var i = 0; i < datalist2.length; i++) {
-    if (msg.content.search(datalist2[i].DataName) != -1) {
-      console.log('착한말이 감지되었습니다!');
-      if (!warn) warndb.set(warn_get, 0);
-      else warndb.add(warn_get, -1);
-      const thankMessage = new MessageEmbed()
-        .setAuthor('시덱이', img)
-        .setTitle('**️♥️ 칭찬이 감지되었습니다!**')
-        .setColor(0xBDBDBD)
-        .setDescription(`${datalist2[i].Output} <@${id}>님!! ${msg.content}!! 멋진말이에요!${!warn ? '\n경고횟수가 0이기 때문에 더이상 감소가 불가능해요!' : ''}`)
-        .addField('누적 경고 수', `${warn} -> ${warn ? warn - 1 : 0}`);
-      msg.react('♥️');
-      msg.reply({ embeds: [thankMessage] }).then(msg => msg.react('♥️'));
-      return;
+    for (var i = 0; i < datalist2.length; i++) {
+      if (msg.content.search(datalist2[i].DataName) != -1) {
+        console.log('착한말이 감지되었습니다!');
+        if (!warn) warndb.set(warn_get, 0);
+        else warndb.add(warn_get, -1);
+        const thankMessage = new MessageEmbed()
+          .setAuthor('시덱이', img)
+          .setTitle('**️♥️ 칭찬이 감지되었습니다!**')
+          .setColor(0xBDBDBD)
+          .setDescription(`${datalist2[i].Output} <@${id}>님!! ${msg.content}!! 멋진말이에요!${!warn ? '\n경고횟수가 0이기 때문에 더이상 감소가 불가능해요!' : ''}`)
+          .addField('누적 경고 수', `${warn ? warn : 0} -> ${warn ? warn - 1 : 0}`);
+        msg.react('♥️');
+        msg.reply({ embeds: [thankMessage] }).then(msg => msg.react('♥️'));
+        return;
+      }
     }
   }
 

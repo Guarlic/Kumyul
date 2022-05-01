@@ -2,8 +2,8 @@ const { MessageEmbed } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 module.exports = {
-  name: "도움말",
-  description: "도움말을 표시합니다.",
+  name: '도움말',
+  description: '도움말을 표시합니다.',
   execute(msg) {
     const after = msg.content.slice(5);
     let helpMessage = new MessageEmbed();

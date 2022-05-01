@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 module.exports = {
-  name: "경고차감",
-  description: "경고를 차감합니다.",
+  name: '경고차감',
+  description: '경고를 차감합니다.',
   execute(msg, args) {
     const perms = msg.member.permissions;
     if (!perms.has('ADMINISTRATOR')) {
