@@ -16,7 +16,7 @@ module.exports = {
     const value_num = Number(msg.content.slice(6));
     const warn_get = `warn.${guild}`;
 
-    if (value_num == 0) {
+    if (value_num < 0) {
       msg.reply('ㅇㅖ? 모두를 밴하고 싶으신가요?');
       return;
     }

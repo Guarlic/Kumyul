@@ -51,13 +51,14 @@ client.on('messageCreate', async msg => {
   const value = warndb.get(value_get);
 
   if (warn >= value) {
+    warndb.set(`warn.${guild}.${id}`, 0);
+
     const perms = msg.member.permissions;
     if (perms.has('ADMINISTARTOR')) {
       msg.channel.send(`음.. <@${id}> 님은 관리자라서 밴을 못하겠어요..`);
       return;
     }
 
-    warndb.set(`warn.${guild}.${id}`, 0);
     msg.channel.send(`경고가 ${value} 회가 넘어 <@${id}> 님이 밴 되었습니다!`);
     msg.guild.members.ban(msg.author.id)
       .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
