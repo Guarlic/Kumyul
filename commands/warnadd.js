@@ -1,6 +1,6 @@
 const db = require('quick.db');
 const warndb = new db.table('warn');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
       return;
     }
 
-    const user = msg.mentions.users.first();
+    const user = msg.mentions.members.first();
     const temp = msg.content.slice(4);
     const guild = msg.guild.id;
     let warn_num = temp != ' ' ? Number(msg.content.slice(26)) : Number(msg.content.slice(4));
@@ -77,16 +77,16 @@ module.exports = {
     if (warn >= value) {
       warndb.set(`warn.${guild}.${target}`, 0);
 
-      const perms = user.member.permissions;
-      if (perms.has('ADMINISTARTOR')) {
-        msg.channel.send(`음.. <@${target}> 님은 관리자라서 밴을 못하겠어요..`);
+      try {
+        msg.channel.send(`경고가 ${value} 회가 넘어 <@${target}> 님이 밴 되었습니다!`);
+        msg.guild.members.ban(target)
+          .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
+          .catch(console.error);
+      }
+      catch (error) {
+        msg.channel.send(`음.. <@${target}> 님은 밴을 못하겠어요..`);
         return;
       }
-
-      msg.channel.send(`경고가 ${value} 회가 넘어 <@${target}> 님이 밴 되었습니다!`);
-      msg.guild.members.ban(target)
-        .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 밴했습니다.`))
-        .catch(console.error);
     }
   }
 }

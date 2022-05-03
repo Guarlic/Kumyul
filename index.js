@@ -83,7 +83,6 @@ client.on('messageCreate', async msg => {
           .addField('누적 경고 수', `${warn ? warn : 0} -> ${warn ? warn + 1 : 1}`);
         msg.delete();
         msg.channel.send({ embeds: [alertMessage] }).then(msg => msg.react('😡'));
-
         return;
       }
     }
