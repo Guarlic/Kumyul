@@ -1,6 +1,6 @@
 const db = require('quick.db');
 const warndb = new db.table('warn');
-const { MessageEmbed, Permissions } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 
 module.exports = {
