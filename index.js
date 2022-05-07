@@ -26,9 +26,27 @@ for (const file of commandFiles) {
 const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg';
 const prefix = 'ㅁ';
 
+class Actlist {
+  constructor(content, type) {
+    this.content = content;
+    this.type = type;
+  }
+};
+
 client.once('ready', () => {
   console.log(`\n${client.user.tag} (검열봇 시덱이) 이 준비되었습니다!`);
-  client.user.setActivity('욕설', { type: "LISTENING" });
+  client.user.setActivity('욕설', { type: 'LISTENING' });
+  setInterval(() => {
+    const list = [
+      new Actlist('욕설', 'LISTENING'),
+      new Actlist('검열', 'PLAYING'),
+      new Actlist('닝겐들 명령', 'LISTENING')
+    ];
+
+    const num = Math.floor(Math.random() * list.length);
+
+    client.user.setActivity(list[num].content, { type: list[num].type });
+  },5000)
 });
 
 client.on('messageCreate', async msg => {

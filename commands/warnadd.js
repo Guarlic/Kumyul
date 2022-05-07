@@ -18,7 +18,7 @@ module.exports = {
       return;
     }
 
-    const user = msg.mentions.members.first();
+    const user = msg.mentions.users.first();
     const temp = msg.content.slice(4);
     const guild = msg.guild.id;
     let warn_num = temp != ' ' ? Number(msg.content.slice(26)) : Number(msg.content.slice(4));
@@ -29,7 +29,7 @@ module.exports = {
     if (!temp.startsWith('<@') && !temp.endsWith('>') || temp.startsWith('<@&') || user.id == undefined) {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
-        .setTitle('**경고 초기화**')
+        .setTitle('**경고 추가**')
         .setDescription(`${temp} (이)라는 유저는 존재하지 않습니다!`);
       msg.reply({ embeds: [answerMessage] });
       return;
@@ -40,7 +40,7 @@ module.exports = {
     if (user.bot) {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
-        .setTitle('**⚠️ 경고 수**')
+        .setTitle('**⚠️ 경고 추가**')
         .setColor(0xBDBDBD)
         .setDescription(`**<@${target}> (이)라는 유저는 봇입니다!**`);
       msg.reply({ embeds: [answerMessage] });
