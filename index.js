@@ -39,8 +39,9 @@ client.once('ready', () => {
   setInterval(() => {
     const list = [
       new Actlist('욕설', 'LISTENING'),
+      new Actlist('닝겐들 명령', 'LISTENING'),
       new Actlist('검열', 'PLAYING'),
-      new Actlist('닝겐들 명령', 'LISTENING')
+      new Actlist('시덱인 귀여웡 이라고', 'PLAYING')
     ];
 
     const num = Math.floor(Math.random() * list.length);
@@ -100,7 +101,7 @@ client.on('messageCreate', async msg => {
           .setDescription(`${datalist[i].Output} <@${msg.author.id}>님!! ${msg.content}(이)라뇨!`)
           .addField('누적 경고 수', `${warn ? warn : 0} -> ${warn ? warn + 1 : 1}`);
         msg.delete();
-        msg.channel.send({ embeds: [alertMessage] }).then(msg => msg.react('😡'));
+        msg.channel.send({ content: `<@${id}>! 이의있소!`, embeds: [alertMessage] }).then(msg => msg.react('😡'));
         return;
       }
     }
