@@ -59,12 +59,6 @@ module.exports = {
 
     collector.on('collect', async msg => {
       const id = msg.user.id;
-      /*
-      if (msg.customId != `${voteid}.lock` && votedb.get(`${voteid}.${id}.true`) == 1 || votedb.get(`${voteid}.${id}.false`) == 1) {
-        msg.channel.send(`<@${id}> 님! 이미 투표하셨잖아요! ㅡ.ㅡ`);
-        return;
-      }
-      */
       if (msg.customId == `${voteid}.true`) {
         if (votedb.get(`${voteid}.${id}`) != undefined) {
           if (votedb.get(`${voteid}.${id}.true`) > 0) {
