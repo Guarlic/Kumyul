@@ -19,9 +19,10 @@ module.exports = {
 
     let voteEmbed = new MessageEmbed()
       .setAuthor('시덱이', img)
-      .setColor(0xBDBDBD)
+      .setColor(0x86E57F)
       .setTitle(`**[ 주제 ]\n${description}**`)
-      .setDescription('`찬성 : 0`\n`반대 : 0`');
+      .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``)
+      .setFooter(`${name}#${discriminator}님이 시작해주셨어요!`);
 
     const buttons = new MessageActionRow()
       .addComponents(
@@ -40,7 +41,7 @@ module.exports = {
       );
 
     msg.channel.send({
-      content: `${name}#${discriminator} 님이 여신 투표에요!`,
+      content: '**새로운 투표에요!**',
       embeds: [voteEmbed],
       components: [buttons]
     });
@@ -67,12 +68,13 @@ module.exports = {
 
             voteEmbed = new MessageEmbed()
               .setAuthor('시덱이', img)
-              .setColor(0xBDBDBD)
+              .setColor(0x86E57F)
               .setTitle(`**[ 주제 ]\n${description}**`)
-              .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``);
+              .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``)
+              .setFooter(`${name}#${discriminator}님이 시작해주셨어요!`);
 
             msg.update({
-              content: `${name}#${discriminator} 님이 여신 투표에요!`,
+              content: '**새로운 투표에요!**',
               embeds: [voteEmbed],
               components: [buttons]
             });
@@ -86,12 +88,13 @@ module.exports = {
 
             voteEmbed = new MessageEmbed()
               .setAuthor('시덱이', img)
-              .setColor(0xBDBDBD)
+              .setColor(0x86E57F)
               .setTitle(`**[ 주제 ]\n${description}**`)
-              .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``);
+              .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``)
+              .setFooter(`${name}#${discriminator}님이 시작해주셨어요!`);
 
             msg.update({
-              content: `${name}#${discriminator} 님이 여신 투표에요!`,
+              content: '**새로운 투표에요!**',
               embeds: [voteEmbed],
               components: [buttons]
             });
@@ -103,12 +106,13 @@ module.exports = {
 
         voteEmbed = new MessageEmbed()
           .setAuthor('시덱이', img)
-          .setColor(0xBDBDBD)
+          .setColor(0x86E57F)
           .setTitle(`**[ 주제 ]\n${description}**`)
-          .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``);
+          .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``)
+          .setFooter(`${name}#${discriminator}님이 시작해주셨어요!`);
 
          msg.update({
-          content: `${name}#${discriminator} 님이 여신 투표에요!`,
+          content: '**새로운 투표에요!**',
           embeds: [voteEmbed],
           components: [buttons]
         });
@@ -121,15 +125,16 @@ module.exports = {
 
             voteEmbed = new MessageEmbed()
               .setAuthor('시덱이', img)
-              .setColor(0xBDBDBD)
+              .setColor(0x86E57F)
               .setTitle(`**[ 주제 ]\n${description}**`)
-              .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``);
+              .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``)
+              .setFooter(`${name}#${discriminator}님이 시작해주셨어요!`);
 
-            msg.update({
-              content: `${name}#${discriminator} 님이 여신 투표에요!`,
-              embeds: [voteEmbed],
-              components: [buttons]
-            });
+              msg.update({
+                content: '**새로운 투표에요!**',
+                embeds: [voteEmbed],
+                components: [buttons]
+              });
             return;
           }
           if (votedb.get(`${voteid}.${id}.true`) > 0) {
@@ -140,12 +145,13 @@ module.exports = {
 
             voteEmbed = new MessageEmbed()
               .setAuthor('시덱이', img)
-              .setColor(0xBDBDBD)
+              .setColor(0x86E57F)
               .setTitle(`**[ 주제 ]\n${description}**`)
-              .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``);
+              .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``)
+              .setFooter(`${name}#${discriminator}님이 시작해주셨어요!`);
 
             msg.update({
-              content: `${name}#${discriminator} 님이 여신 투표에요!`,
+              content: '**새로운 투표에요!**',
               embeds: [voteEmbed],
               components: [buttons]
             });
@@ -157,12 +163,13 @@ module.exports = {
 
         voteEmbed = new MessageEmbed()
           .setAuthor('시덱이', img)
-          .setColor(0xBDBDBD)
+          .setColor(0x86E57F)
           .setTitle(`**[ 주제 ]\n${description}**`)
-          .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``);
+          .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\``)
+          .setFooter(`${name}#${discriminator}님이 시작해주셨어요!`);
 
         msg.update({
-          content: `${name}#${discriminator} 님이 여신 투표에요!`,
+          content: '**새로운 투표에요!**',
           embeds: [voteEmbed],
           components: [buttons]
         });
@@ -176,16 +183,17 @@ module.exports = {
 
         voteEmbed = new MessageEmbed()
           .setAuthor('시덱이', img)
-          .setColor(0xBDBDBD)
+          .setColor(0xF15F5F)
           .setTitle(`**[ 주제 ]\n${description}**`)
-          .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\`\n***이 투표는 종료됐어요!***`);
+          .setDescription(`\`찬성 : ${vote_true}\`\n\`반대 : ${vote_false}\`\n\n***이 투표는 종료됐어요!***`)
+          .setFooter(`${name}#${discriminator}님이 시작해주셨어요!`);
 
         vote_true = 0;
         vote_false = 0;
         vote_open = false;
 
         msg.update({
-          content: `${name}#${discriminator} 님이 여신 투표에요!`,
+          content: '**새로운 투표에요!**',
           embeds: [voteEmbed],
           components: []
         });

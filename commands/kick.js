@@ -22,10 +22,15 @@ module.exports = {
     const warn_get = `warn.${guild}.${id}`;
 
     db.set(warn_get, 0);
-    msg.reply('대상을 킥합니다.');
 
-    msg.guild.members.kick(id)
-      .then(banInfo => console.log(`${banInfo.user?.tag ?? banInfo.tag ?? banInfo} 를 킥했습니다.`))
-      .catch(console.error);
+    try {
+      msg.guild.members.kick(id)
+        .then(kickInfo => console.log(`${kickInfo.user?.tag ?? kickInfo.tag ?? kickInfo} 를 밴했습니다.`))
+    }
+    catch (error) {
+      msg.reply('그 대상은 밴 할 수 없는 것 같아요!');
+    }
+
+    msg.reply('대상을 킥합니다.');
   }
 }
