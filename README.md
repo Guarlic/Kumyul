@@ -5,7 +5,8 @@
 
 # Sojak Studio
 
-[소작농 작업실 링크](https://discord.gg/jzRzdrT9PM)
+[소작농 작업실 깃허브](https://github.com/sojakstudio)
+[소작농 작업실 디스코드](https://discord.gg/jzRzdrT9PM)
 
 # Invite CdecBot
 
