@@ -44,7 +44,8 @@ client.once('ready', () => {
       new Actlist('욕설을 검열', 'PLAYING'),
       new Actlist('시덱인 귀여웡 이라고', 'PLAYING'),
       new Actlist('당신네 서버에서 검열놀이', 'PLAYING'),
-      new Actlist(`${client.guilds.cache.size}개의 서버에서 함께`, 'PLAYING')
+      new Actlist(`${client.guilds.cache.size}개의 서버에서 함께`, 'PLAYING'),
+      new Actlist(`${client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)}명의 닝겐들과 함께`, 'PLAYING')
     ];
 
     const num = Math.floor(Math.random() * list.length);
