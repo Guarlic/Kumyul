@@ -1,5 +1,7 @@
 # CdecBot
 
+<img src="https://cdn.discordapp.com/attachments/938745566647705690/966469502692900874/ab9ac7ad6be1ac73.jpeg" height=150>
+
 - 시덱이는 욕을 검열하기 위해 만들어진 봇입니다.
 - 시덱이는 소작농 작업실에서 개발되었으며, 검열과 경고 관련 기능이 있습니다.
 
