@@ -4,7 +4,7 @@ const warn = new db.table('warn');
 module.exports = {
   name: '한도확인',
   description: '이 서버의 경고 한도를 보여줍니다.',
-  execute(msg) {
+  execute(client, msg) {
     const guild = msg.guild.id;
     const value_get = `value.${guild}`;
     const value = warn.get(value_get);

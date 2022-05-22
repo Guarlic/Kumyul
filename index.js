@@ -55,7 +55,7 @@ client.once('ready', () => {
 });
 
 client.on('messageCreate', async msg => {
-  if (msg.author.bot) return;
+  if (msg.author.bot || msg.channel.topic == 'ㅁ봇금지') return;
   console.log(
     `[ ${msg.guild.name} ] "${msg.channel.name}" ${msg.member.user.username}#${msg.member.user.discriminator} : ${msg.content}`
   );
@@ -128,9 +128,12 @@ client.on('messageCreate', async msg => {
     }
   }
 
+  if (msg.content.startsWith('꺠미야')) msg.reply('전 시덱이거든요!!');
+  if (msg.content == '시덱아 꺠미') msg.reply('걘 너무 장난기가 많아요!! 이름도 개미인게 징그러워가지곤. 저보고 칙칙하다 하지 뭐에요? 아! 호두같은건 인정할게요! 제가 좀 고소하고 담백하긴 하죠 ㅎㅎ');
+
   if (!client.commands.has(command) || !msg.content.startsWith(prefix)) return;
 
-  try { client.commands.get(command).execute(msg, args); }
+  try { client.commands.get(command).execute(client, msg, args); }
   catch (error) { console.error(error); }
 });
 

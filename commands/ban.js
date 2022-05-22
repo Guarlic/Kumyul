@@ -3,7 +3,7 @@ const db = require('quick.db');
 module.exports = {
   name: '밴',
   description: '대상을 밴합니다.',
-  execute(msg) {
+  execute(client, msg) {
     const perms = msg.member.permissions;
     if (!perms.has('ADMINISTARTOR')) {
       msg.reply('이 명령어를 사용하려면 관리자 권한이 있어야해요!');

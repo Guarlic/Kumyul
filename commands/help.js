@@ -4,7 +4,7 @@ const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502
 module.exports = {
   name: '도움말',
   description: '도움말을 표시합니다.',
-  execute(msg) {
+  execute(client, msg) {
     const after = msg.content.slice(5);
     let helpMessage = new MessageEmbed();
 
@@ -23,7 +23,9 @@ module.exports = {
           { name: '경고 지정', value: 'ㅁ경고지정 @유저 숫자 -> 유저의 경고를 지정합니다.'},
           { name: '한도확인', value: 'ㅁ한도확인 -> 이 서버의 경고 한도를 출력합니다.'},
           { name: '한도설정', value: 'ㅁ한도설정 숫자 -> 이 서버의 경고 한도를 변경합니다.'},
-          { name: '투표', value: 'ㅁ투표 주제 -> 주제에 관한 찬반투표를 시작합니다.'}
+          { name: '투표', value: 'ㅁ투표 주제 -> 주제에 관한 찬반투표를 시작합니다.'},
+          { name: '채널설정', value: 'ㅁ채널설정 채널멘션 -> 공지를 올릴 채널을 멘션된 채널로 설정합니다.'},
+          { name: '공지', value: 'ㅁ공지 내용 -> 공지를 채널설정 명령어로 지정했던 채널에 보냅니다.'},
         );
     }
     else if (after == '경고 증감' || after == '경고' || after == '경고차감') {

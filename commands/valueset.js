@@ -4,7 +4,7 @@ const warn = new db.table('warn');
 module.exports = {
   name: '한도설정',
   description: '경고 한도를 설정합니다.',
-  execute(msg) {
+  execute(client, msg) {
     const perms = msg.member.permissions;
     if (!perms.has('ADMINISTRATOR')) {
       msg.reply('이 명령어를 사용하려면 관리자 권한이 있어야해요!');

@@ -6,7 +6,7 @@ const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502
 module.exports = {
   name: '경고',
   description: '경고를 추가합니다.',
-  execute(msg, args) {
+  execute(client, msg, args) {
     const perms = msg.member.permissions;
     if (!perms.has('ADMINISTRATOR')) {
       msg.reply('이 명령어를 사용하려면 관리자 권한이 있어야해요!');

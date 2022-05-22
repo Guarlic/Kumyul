@@ -6,7 +6,7 @@ const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502
 module.exports = {
   name: '경고수',
   description: '경고수를 표시합니다.',
-  execute(msg, args) {
+  execute(client, msg, args) {
     const id = msg.author.id;
     const guild = msg.guild.id;
     const _temp = msg.content.slice(5);

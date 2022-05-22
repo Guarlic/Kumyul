@@ -6,7 +6,7 @@ const img = 'https://cdn.discordapp.com/attachments/938745566647705690/966469502
 module.exports = {
   name: '투표',
   description: '투표를 엽니다.',
-  execute(msg) {
+  execute(client, msg) {
     const id = msg.author.id;
     const name = msg.author.username;
     const discriminator = msg.author.discriminator;
