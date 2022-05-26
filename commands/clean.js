@@ -11,8 +11,8 @@ module.exports = {
     const count = Number(msg.content.slice(4));
     const channel = msg.channel;
 
-    if (count < 0 || count > 101) {
-      msg.reply('한번에 1에서 100개까지만 지울 수 있어요!');
+    if (count < 0 || count > 100) {
+      msg.reply('한번에 1에서 99개까지만 지울 수 있어요!');
       return;
     }
 

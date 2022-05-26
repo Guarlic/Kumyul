@@ -17,6 +17,8 @@ module.exports = {
     let vote_open = true;
     votedb.set(`${voteid}.${id}.open`, true);
 
+    console.log(`투표 시작; 아이디 : ${voteid}`);
+
     let voteEmbed = new MessageEmbed()
       .setAuthor('시덱이', img)
       .setColor(0x86E57F)
@@ -60,6 +62,7 @@ module.exports = {
 
     collector.on('collect', async msg => {
       const id = msg.user.id;
+      console.log(`${msg.user.username}#${msg.user.discriminator} 님이 ${msg.customId} 을 클릭했어요!`);
       if (msg.customId == `${voteid}.true`) {
         if (votedb.get(`${voteid}.${id}`) != undefined) {
           if (votedb.get(`${voteid}.${id}.true`) > 0) {
@@ -180,6 +183,8 @@ module.exports = {
           return;
         }
         votedb.set(`${voteid}.${id}.open`, false);
+
+        console.log(`투표 종료; 아이디 : ${voteid}`);
 
         voteEmbed = new MessageEmbed()
           .setAuthor('시덱이', img)

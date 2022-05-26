@@ -8,6 +8,11 @@ module.exports = {
     const guild = msg.guild.id;
     const channel = announcedb.get(`${guild}.channel`);
 
+    if (channel == null) {
+      msg.reply('공지 채널이 없는데여;;');
+      return;
+    }
+
     msg.reply(`현재 공지 채널은 <#${channel}> 이예에에에에요!`);
   }
 }
