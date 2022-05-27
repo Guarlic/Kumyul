@@ -21,7 +21,7 @@ module.exports = {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .setDescription(`**<@${target} (이)라는 유저는 존재하지 않습니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
@@ -31,9 +31,9 @@ module.exports = {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .setDescription(`**현재 <@${id}> 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${!warndb.get(`warn.${guild}.${id}`) ? '당신은 현재 경고가 없습니다!' : db.get(`warn.${guild}.${id}`)}`);
+        .addField('누적 경고수', `${!warndb.get(`warn.${guild}.${id}`) == undefined ? '당신은 현재 경고가 없습니다!' : db.get(`warn.${guild}.${id}`)}`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
@@ -46,7 +46,7 @@ module.exports = {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .setDescription(`**<@${target}> (이)라는 유저는 봇입니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
@@ -56,7 +56,7 @@ module.exports = {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**⚠️ 경고 수**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .setDescription(`**현재 <@${target}> 님의 경고 횟수입니다!**`)
         .addField('누적 경고수', `${target != id ? `<@${target}> 님은 현재 경고가 없습니다!` : '당신은 현재 경고가 없습니다!'}`);
       msg.reply({ embeds: [answerMessage] });
@@ -66,7 +66,7 @@ module.exports = {
     const answerMessage = new MessageEmbed()
       .setAuthor('시덱이', img)
       .setTitle('**⚠️ 경고 수**')
-      .setColor(0xBDBDBD)
+      .setColor(0xFFB2D9)
       .setDescription(`**현재 <@${target}> 님의 경고 횟수입니다!**`)
       .addField('누적 경고수', `${target != id ? `${warn ? warn : `현재 <@${target}> 님은 경고가 없습니다!`}` : `${warn ? warn : `당신은 현재 경고가 없습니다!`}`}`);
     msg.reply({ embeds: [answerMessage] });

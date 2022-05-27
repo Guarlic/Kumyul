@@ -204,6 +204,7 @@ module.exports = {
         });
 
         votedb.delete(voteid);
+        collector.stop('vote end');
       }
     });
   }

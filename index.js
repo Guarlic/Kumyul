@@ -101,7 +101,7 @@ client.on('messageCreate', async msg => {
         const alertMessage = new MessageEmbed()
           .setAuthor('시덱이', img)
           .setTitle('**⚠️ 욕설이 감지되었습니다!**')
-          .setColor(0xBDBDBD)
+          .setColor(0xFFB2D9)
           .setDescription(`${datalist[i].Output} <@${msg.author.id}>님!! ${msg.content}(이)라뇨!`)
           .addField('누적 경고 수', `${warn ? warn : 0} -> ${warn ? warn + 1 : 1}`);
         msg.delete();
@@ -118,7 +118,7 @@ client.on('messageCreate', async msg => {
         const thankMessage = new MessageEmbed()
           .setAuthor('시덱이', img)
           .setTitle('**️♥️ 칭찬이 감지되었습니다!**')
-          .setColor(0xBDBDBD)
+          .setColor(0xFFB2D9)
           .setDescription(`${datalist2[i].Output} <@${id}>님!! ${msg.content}!! 멋진말이에요!${!warn ? '\n경고횟수가 0이기 때문에 더이상 감소가 불가능해요!' : ''}`)
           .addField('누적 경고 수', `${warn ? warn : 0} -> ${warn ? warn - 1 : 0}`);
         msg.react('♥️');

@@ -12,7 +12,7 @@ module.exports = {
       helpMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .addFields(
           { name: '도움말', value: 'ㅁ도움말 -> 도움말 전체\nㅁ도움말 명령어 -> 명령어의 도움말\n를 표시합니다.' },
           { name: '경고 증가, 차감', value: '욕설 사용 시 경고가 증가되고, 좋은 단어 사용 시 경고가 차감됩니다.' },
@@ -32,49 +32,49 @@ module.exports = {
       helpMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .addField('경고 증가, 차감', '욕설 사용 시 경고가 증가되고, 좋은 단어 사용 시 경고가 차감됩니다.\n(수동으로도 가능합니다)');
     }
     else if (after == '경고수') {
       helpMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .addField('경고수', 'ㅁ경고수 -> 본인의 경고수\nㅁ경고수 @유저 -> 유저의 경고수\n를 표시합니다.');
     }
     else if (after == '경고 초기화') {
       helpMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .addField('경고 초기화', 'ㅁ경고초기화 @유저 -> 유저의 경고를 초기화합니다.');
     }
     else if (after == '경고 지정') {
       helpMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .addField('경고 지정', 'ㅁ경고지정 @유저 숫자 -> 유저의 경고를 지정합니다.');
     }
     else if (after == '한도확인') {
       helpMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .addField('한도확인', 'ㅁ한도확인 -> 이 서버의 경고 한도를 출력합니다.');
     }
     else if (after == '한도설정') {
       helpMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .addField('한도설정', 'ㅁ한도설정 숫자 -> 이 서버의 경고 한도를 변경합니다.');
     }
     else if (after == '투표') {
       helpMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**📜 도움말**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .addField('투표', 'ㅁ투표 주제 -> 주제에 관한 찬반투표를 시작합니다.');
     }
     else {

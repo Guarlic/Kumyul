@@ -30,7 +30,7 @@ module.exports = {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**경고 지정**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .setDescription(`**${temp} (이)라는 유저는 존재하지 않습니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
@@ -44,7 +44,7 @@ module.exports = {
       const answerMessage = new MessageEmbed()
         .setAuthor('시덱이', img)
         .setTitle('**경고 지정**')
-        .setColor(0xBDBDBD)
+        .setColor(0xFFB2D9)
         .setDescription(`**<@${target}> (이)라는 유저는 봇입니다!**`);
       msg.reply({ embeds: [answerMessage] });
       return;
@@ -64,7 +64,7 @@ module.exports = {
     const answerMessage = new MessageEmbed()
       .setAuthor('시덱이', img)
       .setTitle('**경고 지정**')
-      .setColor(0xBDBDBD)
+      .setColor(0xFFB2D9)
       .setDescription(`<@${target}> 님의 경고를 ${warn_num} 으로 설정합니다.`)
       .addField('누적 경고수', `${save == NaN || save == undefined ? 0 : save} -> ${warn}`);
     
