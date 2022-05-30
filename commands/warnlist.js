@@ -33,7 +33,7 @@ module.exports = {
         .setTitle('**⚠️ 경고 수**')
         .setColor(0xFFB2D9)
         .setDescription(`**현재 <@${id}> 님의 경고 횟수입니다!**`)
-        .addField('누적 경고수', `${!warndb.get(`warn.${guild}.${id}`) == undefined ? '당신은 현재 경고가 없습니다!' : db.get(`warn.${guild}.${id}`)}`);
+        .addField('누적 경고수', `${!warndb.get(`warn.${guild}.${id}`) || warndb.get(`warn.${guild}.${id}`) == undefined ? '당신은 현재 경고가 없습니다!' : db.get(`warn.${guild}.${id}`)}`);
       msg.reply({ embeds: [answerMessage] });
       return;
     }
