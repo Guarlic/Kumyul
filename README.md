@@ -11,4 +11,5 @@
 
 # Invite CdecBot
 
-[시덱이 초대 링크](https://discord.com/api/oauth2/authorize?client_id=964153010735435796&permissions=8&scope=bot)
+<a href="https://discord.com/api/oauth2/authorize?client_id=964153010735435796&permissions=8&scope=bot%20applications.commands" target="_blank">
+<img src="https://img.shields.io/badge/Cdec_Invite-4374D9?style=for-the-badge&logo=discord&logoColor=white"></a>
